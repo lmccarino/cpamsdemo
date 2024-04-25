@@ -1,0 +1,78 @@
+<div id="myImage" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h6 class="modal-title">Attachment</h6>
+		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="hidemyImage()"></button>
+		
+      </div>
+      <div class="modal-body">
+		<form enctype="multipart/form-data" id="inputForm" method="POST" action="attachmentController.php">
+            <input type="hidden" name="keyvalue" id="keyvalue">
+			<input type="hidden" name="keyname" id="keyname">
+			<input type="hidden" name="trans2" id="trans2" value="attachment">
+			<input type="hidden" name="label" id="label">
+			<input type="hidden" name="tk">
+            <button type="button" class="btn btn-primary" onclick="checkfilesize()">Save Attachment</button>
+			<br><br>
+            <div id="fileupload[0]" >
+                <img src="attachments/document_image.jpg" class="img-fluid" id="imgupload" >
+				<br>
+                <input type="file" class="file" name="imagefile" id="imagefile" accept="image/jpeg, image/png, application/pdf" onchange="readURL(this,'#imgupload');">   
+            </div> 
+			<br>
+			<button type="button" onclick="checkfilesize()" class="btn btn-primary">Save Files</button>
+			<button type="submit" class="btn btn-default" style="display:none">Submit</button>
+        </form>
+		</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="hidemyImage()">Close</button>
+		
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="myShowImage" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+		<h5 class="modal-title">Attachment</h5>
+        <button type="button" class="close" onclick="hidemyShowImage()">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+		  <img class="img-fluid" alt="attachment" id="imgmodal">
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="hidemyShowImage()">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- <div id="divshowpdf">
+      <object id="objshowpdf"
+        data='https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf'
+        type="application/pdf"
+        width="100%"
+        height="100%"
+      >
+
+        <iframe id="frmshowpdf"
+          src='https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf'
+          width="100%"
+          height="100%"
+        >
+        <p>This browser does not support PDF!</p>
+        </iframe>
+      </object>
+</div>
+-->

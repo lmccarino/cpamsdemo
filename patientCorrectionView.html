@@ -1,0 +1,235 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="images/icons/72.png">
+    <title>CPAMS</title>
+    <link rel="stylesheet" href="css/main2.css">
+</head>
+<body>
+    <div id="header1"></div>
+
+    <div class="container">
+        <div id="content">
+            <div class="pt-3 mt-1">
+                <h4 class="px-3">Patient Correction</h4>
+            </div>
+                    
+            <form id="searchForm" style="width:100%">
+                <small class="badge badge-pill mt-4 mx-3 py-1">Filter Data</small>
+
+                <div class="row g-1 py-2 border-top border-bottom">
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="search-lastname" name="search_lastname" placeholder="Last Name" />
+                            <label for="search-lastname"> Last Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="search-firstname" name="search_firstname" placeholder="First Name" />
+                            <label for="search-firstname"> First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="search-patient-id" name="search_patient_id" placeholder="Patient ID" />
+                            <label for="search-patient-id"> Patient ID</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 filterbutton d-inline-flex">
+                        <button class="btn mt-1" type="button" onclick="searchPatient()">Search</button>
+                        &nbsp;
+                        <button class="btn bg-light text-dark btn-outline-dark mt-1" type="button" onclick="clearSearch()">Clear</button>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <input type="Date" class="form-control" id="search-date-dob" name="search_dob" maxlength="10" placeholder="xxxx"/>
+                            <label for="search-date-dob">Date of Birth</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 offset-md-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="search-raf-num" name="search_raf_num" placeholder="RAF Number" />
+                            <label for="search-raf-num"> RAF Number</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <small class="badge badge-pill mx-3 py-1">List of Patients</small>
+
+            <div class="col-12 border-top py-2 tablecontainer">    
+                <table id="ds" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Patient ID</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Suffix</th>
+                            <th>Date of Birth</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="details" style="display:none;"></div>
+    </div>
+
+    <form name="entryform" id="entryform">
+        <div id="modal-form" class="modal" role="dialog">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header py-1">
+                        <h4 class="modal-title"><span>Patient Information</span></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <fieldset name="myfields">
+                            <input type="hidden" id="trans" name="trans" value="UPDATEPATIENTINFORMATION"/>
+                            <input type="hidden" id="tk" name="tk"/>
+                            
+                            <div class="row g-1 py-1">
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input type="text" id="patient-id" name="idpatient" class="form-control bg-light" placeholder="Patient ID" readonly/>
+                                        <label>Patient ID <span id="patient-id-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 offset-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" id="patient-encoded" class="form-control bg-light" placeholder="Date Encoded" readonly/>
+                                        <label>Date Effectivity <span id="patient-encoded-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-1 py-1 mt-2">
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input type="text" id="patient-lastname" name="benLName" class="form-control" placeholder="Last Name" required />
+                                        <label>Last Name <i class="fas fa-exclamation-circle text-danger"></i> <span id="patient-lastname-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <input type="text" id="patient-firstname" name="benFName" class="form-control" placeholder="First Name" required />
+                                        <label>First Name <i class="fas fa-exclamation-circle text-danger"></i> <span id="patient-firstname-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input type="text" id="patient-middlename" name="benMName" class="form-control" placeholder="Middle Name"/>
+                                        <label>Middle Name <span id="patient-middlename-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-floating">
+                                        <input type="text" id="patient-suffix" name="suffix" class="form-control" placeholder="Suffix Name"/>
+                                        <label>Suffix <span id="patient-suffix-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-1 py-1 mt-2">
+                                <div class="col-md-9">
+                                    <div class="form-floating">
+                                        <input type="text" id="patient-address" name="benAddrSt" class="form-control" placeholder="Address" required />
+                                        <label>Address <i class="fas fa-exclamation-circle text-danger"></i> <span id="patient-address-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">    
+                                    <div class="form-floating">
+                                        <select id="patient-barangay" name="brgyCode" class="form-control" required></select>
+                                        <label> Barangay <i class="fas fa-exclamation-circle text-danger"></i> <span id="patient-barangay-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-1 py-1 mt-2">
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <select id="patient-sex" name="benSex" class="form-control" required>
+                                            <option value="MALE">Male</option>
+                                            <option value="FEMALE">Female</option>
+                                        </select>
+                                        <label for="input_patient_sex">Choose a Sex <small><i class="fas fa-exclamation-circle text-danger"></i> <span id="patient-sex-state" class="float-end text-warning"></span></small></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="patient-contact" name="benContact" placeholder="Contact No" />
+                                        <label>Contact No <span id="patient-contact-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 offset-md-3">    
+                                    <div class="form-floating">
+                                        <input type="Date" class="form-control" id="patient-dob" name="benBDate" placeholder="Date of Birth" required/>
+                                        <label>Date of Birth <i class="fas fa-exclamation-circle text-danger"></i> <span id="patient-dob-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-1 py-1 mt-2">
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="patient-philhealth-id" name="benPHealth" placeholder="PhilHealth ID" />
+                                        <label>PhilHealth ID <span id="patient-philhealth-id-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="patient-philsys-id" name="philsysid" placeholder="PhilSys ID" />
+                                        <label>PhilSys ID <span id="patient-philsys-id-state" class="float-end text-warning"></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="row mt-4" id="history-container" hidden>
+                            <div class="col-12">
+                                <div class="alert alert-secondary" role="alert">
+                                    <small>
+                                        <small class="fw-bold mb-0">History</small>
+                                        <hr class="my-0 py-1"/>
+                                        <small id="history-list"></small>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer mb-0">
+                        <button class="btn btn-warning" id="btnSave">Update</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </form> 
+
+            
+        </div>  
+    </div>
+
+    <div id="header"></div>    
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/patientCorrectionView.js?v=1"></script>

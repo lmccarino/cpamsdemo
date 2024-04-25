@@ -1,0 +1,219 @@
+<head>
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="images/icons/72.png">
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+
+</head>
+<body>
+<div id="header1"></div>
+<div class="container">
+	
+	<div id="content">  
+	  <div class="pt-3 mt-1"><h4 class="px-3">List of Users</h4></div>
+		<div id="list">
+			<div class="row g-1 py-2">				
+				<div class="offset-md-10 col-md-2 filterbutton">
+					<button type="button" onclick="additem()"  class="btn mt-2" data-toggle="tooltip" title="Add New Account"><i class="fa fa-plus"></i> Create New User</button>
+				</div>
+			</div>
+			<small class="badge badge-pill mx-3 py-1">List of Accounts</small>
+			<div class="row g-1 py-2 border-top border-bottom tablecontainer">
+				<table class="table" id="ds" style="width:100%">
+					<thead><tr><th></th><th>Name</th><th>Office</th><th></th><th></th></tr></thead>
+					<tbody></tbody>
+				</table>
+
+			</div>
+			<!-- <div class="row g-1 py-2 border-top border-bottom">
+					<br/>
+					<div class="text-end"><button type="button" onclick="additem()" class="btn btn-primary" data-toggle="tooltip" title="Add New Account"><span class="fa fa-plus"></span></button></div>	
+					<br/>
+			</div> -->
+		</div>
+
+		<div id="details" style="display:none"><br/><br/>
+			<small class="badge badge-pill mx-3 py-1">Create New Account</small>
+			<form name="entryform" id="entryform" enctype="multipart/form-data" class="g-1 py-2 border-top border-bottom">
+				<fieldset name="myfields" disabled>
+					<input type="hidden" name="userid" id="userid"/>
+					<input type="hidden" name="trans" id="trans"/>
+					<input type="hidden" name="image1" id="image1"/>
+					<input type="hidden" name="sig1" id="sig1"/>
+					<input type="hidden" name="tk"/>
+					<div class="row">
+						<div class="col-4 g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="email" class="form-control" id="emailaddress" name="emailaddress" placeholder="Email" />
+								<label for="email">Email</label>
+							</div>
+							<div class="form-floating mx-1 p-1">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+								<label for="password">Password</label>
+							</div>
+							<div class="form-floating mx-1 p-1">
+								<input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password" />
+								<label for="password2">Confirm Password</label>
+							</div>
+						</div>
+						<div class="col-4 g-1">							
+							<small class="badge badge-pill mt-4 mx-3 py-1">Profile Image</small>
+							<img src="userimages/person.jpg" class="img-responsive" id="imgupload" name="imgupload">
+							<div class="mx-1 p-1 input-group custom-file-button">
+								<label class="input-group-text" for="imagefile"><i class="fa-solid fa-arrow-up-from-bracket"></i></label>
+								<!-- <label class="input-group-text" for="imagefile">Profile Image</label> -->
+								<input type="file" class="file form-control" name="imagefile" id="imagefile" accept="image/jpeg, image/png" onchange="readURL(this,'#imgupload');">
+							</div>
+
+						</div>
+						<div class="col-4 g-1">
+							<small class="badge badge-pill mt-4 mx-3 py-1">Signature</small>
+							<img src="signatures/signature.png" class="img-responsive" id="sigupload" name="sigupload">
+							<div class="mx-1 p-1 input-group custom-file-button">
+								<label class="input-group-text" for="imagefile"><i class="fa-solid fa-arrow-up-from-bracket"></i></label>
+								<input type="file" class="file form-control" name="sigfile" id="sigfile" accept="image/png" onchange="readURL(this,'#sigupload');">
+							</div>							
+							<small class="p-1" style="background-color:#3aafa9; color:#17252a; font-weight: bold; font-size:0.8em;">Height:150px Width:300px png format</small>
+						</div>						
+					</div>					
+					<div class="row">
+						<div class="col-md-9 g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="text" class="form-control" id="fullname" name="fullname" required="true"  placeholder="Last Name, First Name Middle Name">
+								<label for="fullname">Full Name</label>
+							</div>
+						</div>
+						<div class="col-md-3 g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="text" class="form-control" id="cellno" name="cellno" required="true"  placeholder="09*********">
+								<label for="cellno">Mobile Number</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col g-1">
+							<div class="form-floating mx-1 p-1">
+								<select class="form-control" id="office" name="office"></select>
+								<label for="sel1">Office</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="text" class="form-control" id="remarks" name="remarks" placeholder="Remarks">
+								<label for="remarks">Remarks</label>
+							</div>
+						</div>						
+					</div>
+					<div class="row">
+						<div class="col g-1">
+							<div class="form-floating mx-1 p-1">
+								<select class="form-control" name="active" id="active">
+									<option value='Y'>Yes</option>
+									<option value='N'>No</option>
+								</select>
+								<label>Active</label>
+							</div>
+						</div>
+						<div class="col g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="text" class="form-control" id="login" name="login" disabled>
+								<label for="login">Log-In Date</label>
+							</div>
+						</div>
+						<div class="col g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="text" class="form-control" id="ip" name="ip" disabled>
+								<label for="login">IP Address</label>
+							</div>
+						</div>
+					</div>		
+
+				</fieldset>
+				<div class="offset-md-9 col-md-3 border-top">
+					<button name="butsave" type="button" onclick="savethis(this.form)" class="btn btn-primary" id="savebut">Save</button>
+					<button name="butupdate" type="button" onclick="updatethis(this.form)" class="btn btn-success" id="updatebut">Update</button>
+					<button name="butcancel" type="button" onclick="cancelthis(this.form)" class="btn btn-default" id="cancelbut">Cancel</button>	
+					<button name="butclose" type="button" onclick="closethis(this.form)" class="btn btn-danger" id="closebut">Close</button>	
+				</div>	
+
+			</form>	
+		</div>	
+	</div>
+</div>
+<div id="header"></div>
+
+<div id="prevModal" class="modal" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+	    	<h5 class="modal-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>        
+      </div>
+      <div class="modal-body">
+      	<div id="modaltitle"></div>
+				<div class="row">
+					<div id="modaldetails" class="col-12"></div>
+				</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+  </div>
+</div>
+<div id="roleModal" class="modal" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+      	<h5>Account Roles</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+
+      	<div id="modaltitle2"></div>
+				<div class="row">
+					<div id="modaldetails2" class="col-12"></div>
+				</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+  	</div>
+	</div>
+</div>
+	<div id="mySave" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+				  <img class="img-responsive center-block" alt="saving" src="images/saving.gif">
+				  <div class="col-12" style="text-align:center"><span>Saving Please Wait</span></div>
+			  </div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/usersView.js"></script>
+

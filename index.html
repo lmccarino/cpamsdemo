@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<!-- <link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png"> -->
+<link rel="manifest" href="manifest.json">
+<!-- <link rel="icon" href="images/icons/72.png"> -->
+<link rel="icon" type="image/ico" href="assets/images/cpams_logo.ico"/>
+<!-- <link rel="stylesheet" href="assets/css/style-landing.css"> -->
+<!-- <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'> -->
+
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+</head>
+<body>
+<div id="header1"></div>
+<div class="landingcontainer" style="padding-top: 50px;">      
+  <!-- <h3>Welcome</h3> -->
+  <div class="toplogocontainer">
+    <img src="assets/images/lungsod ng dabaw.png" width="45" height="45">
+    <img src="assets/images/lifeishere.jpg" height="45">
+  </div>
+  <br/>
+  <h1>City Public Assistance <br/>Management System</h1><br/>
+  <div class="definitioncontainer">
+    <p>The <b><i>Lingap Program</i></b> is an initiative of the <b>Davao City Government</b> which provides medical and hospitalization assistance to Davao City residents who are determined indigents and needs immediate medical help. The program's assistance is coursed through the government-owned Southern Philippines Medical Center (SPMC). Assistance are also extended residents who specially need financial help through medicine or hospital fee subsidies even if they are confined in private hospitals. Additionally, the program also offers funeral assistance through pauper's burial through the city's public cemetery. The program is extended to the beneficiaries through processing centers, at the Malasakit Center and satellite offices.</p>
+  </div>
+  <div class="buttoncontainer">
+    <button id="loginbutton" onclick="openloginform()">Login</button>
+    <button id="applybutton">Apply Online</button>
+  </div>
+  
+<div class="landingfooter">
+  <b>© CITC 2022</b> citc.davaocity.gov.ph
+</div>
+</div>
+<div class="container">
+    
+<div id="content" style="display: none">
+    <div class="row">
+        <div class="pt-3 mt-1 g-2"><h4 class="px-3">Dashboard</h4></div>
+    </div>   
+
+    <div class="row">
+        <div class="offset-lg-10 col-lg-2 g-2">
+            <select class="form-control" id="statistic-span">
+                <option value="1">Today</option>
+                <option value="2">This week</option>
+                <option value="3">This month</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 g-2">
+            <div class="card">
+                <div class="card-body">
+                    <i class="fas fa-user-shield fa-2x float-end mt-1 pt-1" style="color: rgba(43, 122, 120, .8) !important;"></i>
+                    <h5 class="text-pastel-primary mb-0" id="approved-assistance-card">-</h5>
+                    <small class="text-monospace text-muted">APPROVED ASSISTANCE</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 g-2">
+            <div class="card">
+                <div class="card-body">
+                    <i class="fas fa-arrow-trend-up fa-2x float-end mt-1 pt-1" style="color: rgba(43, 122, 120, .8) !important;"></i>
+                    <h5 class="text-pastel-primary mb-0" id="override-assistance-card">-</h5>
+                    <small class="text-monospace text-muted">OVERRIDE ASSISTANCE</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 g-2">
+            <div class="card">
+                <div class="card-body">
+                    <i class="fas fa-ban fa-2x float-end mt-1 pt-1" style="color: rgba(43, 122, 120, .8) !important;"></i>
+                    <h5 class="text-pastel-primary mb-0" id="cancelled-total-card">-</h5>
+                    <small class="text-monospace text-muted">CANCELLED ASSISTANCE</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 g-2">
+            <div class="card">
+                <div class="card-body">
+                    <i class="fas fa-user-clock fa-2x float-end mt-1 pt-1" style="color: rgba(43, 122, 120, .8) !important;"></i>
+                    <h5 class="text-pastel-primary mb-0" id="online-users-card">-</h5>
+                    <small class="text-monospace text-muted">ONLINE USERS</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 g-2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-lg-12">
+                                    <canvas id="percent-total-assistance-amount" height="180"></canvas>
+                                </div>
+                                <h6 class="col-12 mt-2 text-center text-secondary">APPROVED</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 g-2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-lg-12">
+                                    <canvas id="percent-total-override-amount" height="180"></canvas>
+                                </div>
+                                <h6 class="col-12 mt-2 text-center text-secondary">OVERRIDE</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 g-2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-lg-12">
+                                    <canvas id="percent-total-assistance-amount-category" height="180"></canvas>
+                                </div>
+                                <h6 class="col-12 mt-2 text-center text-secondary">CATEGORY</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 g-2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-lg-12">
+                                    <canvas id="percent-remaining-balance" height="180"></canvas>
+                                </div>
+                                <h6 class="col-12 mt-2 text-center text-secondary">REMAINING BALANCE</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-3 g-2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-lg-12">
+                                    <canvas id="percent-total-assistance-platform" height="180"></canvas>
+                                </div>
+                                <h6 class="col-12 mt-2 text-center text-secondary">PLATFORM</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 g-2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-lg-12">
+                                    <canvas id="percent-total-assistance-gender" height="180"></canvas>
+                                </div>
+                                <h6 class="col-12 mt-2 text-center text-secondary">GENDER</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 g-2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-lg-12">
+                                    <canvas id="percent-total-assistance-age" height="180"></canvas>
+                                </div>
+                                <h6 class="col-12 mt-2 text-center text-secondary">AGE</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 g-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-lg-12">
+                            <canvas id="percent-total-assistance-barangay" height="380"></canvas>
+                        </div>
+                        <h6 class="col-12 mt-2 text-center text-secondary">BARANGAY</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-lg-7 g-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row g-1 my-1">
+                        <div class="fw-bold text-muted col" style="display:block;line-height:1;">
+                            Cash Flow
+                        </div>
+                        <div class="fw-bold text-muted col-2 text-end" style="display:block;line-height:1;">
+                            Debit
+                        </div>
+                        <div class="fw-bold text-muted col-2 text-end" style="display:block;line-height:1;">
+                            Credit
+                        </div>
+                        <div class="fw-bold text-muted col-3 text-end" style="display:block;line-height:1;">
+                            Balance
+                        </div>
+                    </div>
+                    <div id="cash-flow-container"></div>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-body">
+                    <h6 class="text-muted">History</h6>
+                    <table class="table table-sm" style="width:100%; font-size: 11px">
+                        <thead>
+                            <tr class="text-muted">
+                                <th>Date</th>
+                                <th>Changes</th>
+                                <th>User</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-container"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 g-2">
+            <div class="card">
+                <div class="card-body">
+                    <div id="login-logs-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<div id="header"></div>
+</body>
+</html>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/chart.min.js"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/index.js"></script>
+<script src="js/src/dashboard.js?v=3"></script>
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<!-- <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
+ -->
+<script>
+ </script>

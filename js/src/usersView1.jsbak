@@ -1,0 +1,393 @@
+function readURL(input, id) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+	  var sfilename = input.value;
+	  var ext = sfilename.substr(sfilename.lastIndexOf('.') + 1);
+	  if (ext == 'pdf'){$(id).attr('src', 'attachments/pdficon.jpg');} else {
+      $(id)
+        .attr('src', e.target.result);}
+        
+    };
+	
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function startload() {
+	//document.getElementById('details').style.display = "block";
+	
+	
+	
+	$.get("controllers/usersController.php",{trans:"getoffices",tk:qs['tk']}, function(data){
+		var x = document.getElementById('entryform');
+		var gl = x.elements.namedItem('office');
+		var row = data['data'];
+		gl.innerHTML = "";
+		for (a = 0;a < row.length; a++){
+			var option = document.createElement("option");
+							option.text = row[a]['officename'];
+							option.value = row[a]['officecode'];
+							gl.add(option); 
+		}
+		getprofile();
+	},"json");
+		initload();
+}
+function getprofile(){
+	$.get("controllers/usersController.php",{trans:"getprofile","tk":qs['tk']},function (data) {getchild(data);},'json');
+
+}
+
+function getchild(user){
+var data = user['user'];
+var x = document.getElementById('entryform');
+//var x = document.getElementById(userid);
+
+	
+	x.elements.namedItem('tk').value=qs['tk'];
+	x.elements.namedItem('trans').value='UPDATE';
+	x.elements.namedItem('userid').value=data['userid'];
+	x.elements.namedItem('fullname').value=data['fullname'];
+	x.elements.namedItem('active').value=data['active'];
+	x.elements.namedItem('office').value=data['office'];
+	x.elements.namedItem('login').value=data['login'];
+	x.elements.namedItem('ip').value=data['ip'];
+	x.elements.namedItem('cellno').value=data['cellno'];
+	x.elements.namedItem('emailaddress').value=data['emailaddress'];
+	x.elements.namedItem('remarks').value=data['remarks'];
+	if (data['image']){
+		document.getElementById('imgupload').src="userimages/"+data['image'];
+		x.elements.namedItem('image1').value=data['image'];
+	} else {
+		document.getElementById('imgupload').src="userimages/person.jpg";
+		x.elements.namedItem('image1').value="";
+	}
+	if (data['signature']){
+		document.getElementById('sigupload').src="signatures/"+data['signature'];
+		x.elements.namedItem('sig1').value=data['signature'];
+	} else {
+		document.getElementById('sigupload').src="signatures/signature.png";
+		x.elements.namedItem('sig1').value="";
+	}
+	
+}
+
+
+
+function savethis(thisform){
+var cont = 1;
+
+	
+	
+	var xdetails = thisform.elements.namedItem('fullname').value;
+	var pass = thisform.elements.namedItem('password').value;
+	var pass2 = thisform.elements.namedItem('password2').value;
+	
+		
+		
+		
+		if (!xdetails) { toastr.warning('Invalid Fullname Field'); cont = -1;} 
+		if (pass !=pass2) { toastr.warning('Invalid password Field'); cont = -1;} 
+	
+	
+	if (cont > -1){
+		
+		var data = new FormData(thisform);
+		//var data = $(thisform).serialize();
+		
+		$.ajax({
+            url: 'controllers/usersController.php',
+			data: data,
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			type: 'POST',
+            success: function(data) {
+			
+				    
+							
+						
+						toastr.success('Record Saved');
+						tupdate = true;
+						document.getElementById('userid').value = data['userid'];
+						document.getElementById('trans').value = 'UPDATE';
+						document.getElementById('image1').value = data['image'];
+						document.getElementById('image1').value = data['signature'];
+					
+					
+			}
+		});
+		
+		
+		
+	}
+	return true;
+}
+
+function cancelthis(thisform){
+	startload();
+	
+}
+function devicethis(data){
+var userid = data['userid'];
+var tk=qs['tk'];
+	
+	var table = $('#ds').DataTable( {
+		"ajax": "controllers/webauthnController.php?trans=getdevs&tk="+tk, "destroy":true,
+		
+        "columns": [
+            
+			{ "data": "clientdesc"},
+			{ "data": "devdesc"},
+			{"className":'delbutton',"defaultContent": '<button type="button" data-toggle="tooltip" title="remove" class="btn btn-link" ><span class="fa fa-window-close"></span></button>'}	
+
+        ], "searching":false,
+    } );
+	$('#ds tbody').off( 'click');
+	$('#ds tbody').on( 'click', 'td.delbutton', function (o) {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+		deletethis(row.data());
+	} );
+	$("#devModal").modal("show");
+}
+function subscribethis(data){
+	var userid = data['userid'];
+	var tk=qs['tk'];
+
+	try{
+		const serverkey = 'BLdfoegP6owPws_xF6ksUh4Owis7feoKKnCC9JrBwqEkDFrsrg_YzpnvSB3JA8u8NHBBS4IrGb6dYx_7J-1kxdY';
+		if('serviceWorker' in navigator){
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            // Initialize Firebase
+            if (firebase.apps.length === 0) {
+	            firebase.initializeApp({
+	            	apiKey: "AIzaSyAN-k9DjrfillU5XWD7dzquxHGqVUhM3EQ",
+	            	authDomain: "cpams-d51ad.firebaseapp.com",
+	            	projectId: "cpams-d51ad",
+	            	storageBucket: "cpams-d51ad.appspot.com",
+	            	messagingSenderId: "164282235570",
+	            	appId: "1:164282235570:web:aa2cc9955939fb7938e7ab",
+	            	measurementId: "G-GPTZK3RQDD"
+	            });
+	            firebase.analytics();
+			}
+			const messaging = firebase.messaging();
+			
+			if (firebase.messaging.isSupported()) {
+				let permission = Notification.permission;
+				if(permission === "granted") {
+					try {
+						navigator.serviceWorker.register('firebase-messaging-sw.js')
+						.then((register) => {
+							messaging.requestPermission().then(() => {
+								messaging.getToken({ vapidKey: serverkey })
+								.then((fcmToken) => {
+									console.log(fcmToken);
+									$.ajax({
+										url: 'controllers/deviceController.php',
+										cache: false,
+										dataType: 'json',
+										type: 'POST',
+										data: {
+											trans: "add_device",
+											user_id: userid.value,
+											firebase_id: fcmToken
+										},
+										success: function(data) {	
+											console.log(data);
+											alert("Device subscribed to Push Notification.");
+										},
+										error: function(err){
+											alert("Failed to subscribe device.");
+											console.log(err);
+										}
+									});
+								})
+								.catch((err) => {
+									alert('Failed to subscribe to push notification.');
+									console.log(err);
+								});
+							});
+						})
+						.catch((err) => {
+							alert('Failed to register service notification.');
+							console.log(err);
+						});
+					} catch (error) {
+						alert(error);
+					}
+				} else {
+					Notification.requestPermission(function (permission) {
+						if (permission === "granted")
+							alert('You can now subscribe device to notification.');
+						else
+							alert('You must allow notification to subscribe.');
+					});
+				}
+			}
+			else alert('Push Notification is not supported in this device.');
+	    } 
+	    else alert('Push Notification is not supported in this device.');
+
+    }catch(e){
+    	alert(e);
+    }
+}
+function deletethis(data){
+let tk=qs['tk'];
+gentkform(tk);
+bootbox.confirm({
+    message: 'Delete this Device '+ data['clientdesc'] +'?',
+    buttons: {
+        confirm: {
+            label: 'Yes',
+            className: 'btn-danger'
+        },
+        cancel: {
+            label: 'No',
+            className: 'btn-default'
+        }
+    },
+    callback: function (result) {
+        if (result){
+			var tk=qs['tk'];
+			$.get("controllers/webauthnController.php",{trans:"delete",idwebauthn:data['idwebauthn'],"tk":tk},function(data){
+										
+											bootbox.alert('Device deleted');
+									        $('#ds').DataTable().ajax.reload(null,false);
+											
+							        },'json');
+					
+
+		}
+    }
+});
+	return false;
+}
+function adddev(){
+let udata = navigator.userAgentData;
+let xdevice = "Desktop";
+let tk = qs['tk'];
+gentkform(tk);
+$("#myVerify").modal("show");
+		if (udata.mobile) { xdevice = "Mobile";}
+		
+
+            if (!window.fetch || !navigator.credentials || !navigator.credentials.create) {
+				$("#myVerify").modal("hide");
+                bootbox.alert('Your device cannot support this operation.');
+				return;
+            } else {
+				if(navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+            
+				} else {
+					$("#myVerify").modal("hide");
+					 bootbox.alert('Your device cannot supported this operation. - get current location');
+				}
+				
+				
+				
+			}
+			
+			
+			
+}
+function successCallback(position) {
+		var tk=qs['tk'];
+		document.getElementById('latitude').value = position.coords.latitude;
+		document.getElementById('longitude').value = position.coords.longitude;
+		let udata = navigator.userAgentData;
+		let xdevice = "Desktop";
+			if (udata.mobile) { xdevice = "Mobile";}
+			let devdesc = "Device: "+ xdevice+" OS: "+ udata.platform;
+			document.getElementById('devdesc').value = devdesc;
+			document.getElementById('datereg').value = configuredate();
+			gentkform(tk);
+			$("#myVerify").modal("hide");
+			$("#getdevModal").modal("show");
+		
+}
+function errorCallback(error) {
+		$("#myVerify").modal("hide");
+        bootbox.alert('Your device cannot support this operation. - please allow this application to trace your location');
+    }
+function savedev(e){
+var cont = 1;
+var tk=qs['tk'];
+let idwebauthn;
+	let thisform = e.form;
+	var xdetails = thisform.elements.namedItem('clientdesc').value;
+	thisform.elements.namedItem('tk').value = tk;
+			
+		if (!xdetails) { bootbox.alert('Invalid Device Name'); cont = -1;} 
+		
+	
+	if (cont > -1){
+		
+		//let data = new FormData(thisform);
+		//var data = "tk=42";
+		//console.log(JSON.stringify(data));
+		let data = $(thisform).serialize();
+		$("#myVerify").modal("show");
+		window.fetch('controllers/webauthnController.php?'+data, {
+			method: 'GET', // *GET, POST, PUT, DELETE, etc.
+			cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+			}
+		).then(function(response) {
+                return response.json();
+
+                
+				}).then(function(json) {
+
+                
+					if (json.success === false) {
+						$("#myVerify").modal("hide");
+						throw new Error(json.msg);
+					}
+	
+					json.publicKey.user.id = Uint8Array.from( json.publicKey.user.id, c => c.charCodeAt(0)),
+					json.publicKey.challenge = Uint8Array.from(json.publicKey.challenge, c => c.charCodeAt(0));
+
+					if (json.publicKey.excludeCredentials) {
+						for (let cred of json.publicKey.excludeCredentials) {
+							cred.id = Uint8Array.from(cred.id, c => c.charCodeAt(0));
+						}
+					}
+					idwebauthn = json.idwebauthn;
+					return json;
+
+				}).then(function(options){
+					$("#getdevModal").modal("hide");
+					return navigator.credentials.create(options);
+				}).then(function(cred) {
+					let clientDataJSON = arrayBufferToBase64(cred.response.clientDataJSON);
+					//var clientDataStr = arrayBufferToStr(cred.response.clientDataJSON);
+					//var clientDataObj = JSON.parse(clientDataStr);
+					//console.log(clientDataObj.type);      // "webauthn.create" or "webauthn.get"
+					//console.log(clientDataObj.challenge); // base64 encoded String containing the original challenge
+					//onsole.log(clientDataObj.origin);
+					$.get('controllers/webauthnController.php',{"idwebauthn":idwebauthn,"webauthnid":arrayBufferToBase64(cred.rawId),"clientDataJSON":clientDataJSON,trans:"savedev","tk":qs['tk']},function (data){
+						$("#myVerify").modal("hide");
+						localStorage.setItem("webauthnid", data['webauthnid']);
+						$('#ds').DataTable().ajax.reload(null,false);
+						
+						bootbox.alert('Device Registration completed');
+					},'json');
+					
+					
+				});
+
+				
+				
+				
+				
+				
+		
+	}
+	return true;
+}

@@ -1,0 +1,43 @@
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="images/icons/72.png">
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+</head>
+<body>
+<div id="header1"></div>
+<div class="container">
+	
+	<div id="content">
+		<div class="pt-3 mt-1"><h4 class="px-3">Pending RAF</h4></div>
+				
+		<div id="list">
+			<small class="badge badge-pill mx-3 py-1">Pending RAF Details</small>
+			<div class="row g-1 py-2 border-top border-bottom tablecontainer">	
+				<table id="ds" class="table">
+					<thead><tr><th>RAF#</th><th>Patient</th><th>Date</th><th>Assistance</th><th>Provider</th><th>Amount</th><th></th></tr></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+		<div id="details" style="display:none"></div>	
+	</div>				
+</div>
+<div id="header"></div>
+
+</body>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/pendingView.js"></script>

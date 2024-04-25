@@ -1,0 +1,174 @@
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="images/icons/72.png">
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+
+</head>
+<body>
+<div id="header1"></div>
+<div class="container">
+	
+	<div id="content">
+		<div class="pt-3 mt-1"><h4 class="px-3">Raise Issue</h4></div>
+		   
+		<div id="details" style="display:none">
+		   
+			<div class="row">
+				<div class="col-12 text-end"><button type="button" class="btn-close close" onclick="closethis()"></button>
+				</div>
+				
+				<form id="entryform" action="controllers/raiseissueController.php" method="post" style="width:100%" name="entryform" enctype="multipart/form-data" >
+				
+					<fieldset id="myfields">											
+								
+						<input type="hidden" name="tk">
+						<input type="hidden" name="trans">
+						<input type="hidden" name="ckcontent">
+						<div class="row">	
+							<div class="col-3 g-1">
+								<div class="form-floating mx-1 p-1">
+									<input type="number" class="form-control" id="idissues" name="idissues" placeholder="Ticket Number" readonly/>
+									<label>Ticket Number</label>
+								</div>
+							</div>
+							<div class="col-9 g-1">
+								<div class="form-floating mx-1 p-1">
+									<input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required/>
+									<label>Subject</label>
+								</div>
+							</div>
+						</div>
+						<small class="badge badge-pill mx-3 py-1">Issues/Concerns/Errors</small>
+						<div class="row">	
+							<div class="col-12 g-1">
+								<div class="form-floating mx-1 p-1">
+									<textarea name="editor" id="editor" placeholder="Type the content here">	  
+									</textarea>
+								</div>
+							</div>
+						</div>
+						<div class="row">	
+							<div class="col-3 g-1">
+								<div class="form-floating mx-1 p-1">
+									<input type="number" class="form-control" id="datefiled" name="datefiled" placeholder="Date Filed" readonly/>
+									<label>Date Filed</label>
+								</div>
+							</div>
+							<div class="col-9 g-1">
+								<div class="form-floating mx-1 p-1">
+									<input type="text" class="form-control" id="filedby" name="filedby" placeholder="Filed by" readonly/>
+									<label>Filed by</label>
+								</div>
+							</div>
+						</div>
+						<div class="offset-md-9 col-md-3 border-top">
+							<button type="button" onclick="savedetails()" class="btn btn-primary savebutton" id="savebut" data-toggle="tooltip" title="Save"><i class="fa fa-save"></i> Save</button>
+							<button type="button" onclick="submitdetails()" class="btn btn-info submitbutton" id="submitbutton" data-toggle="tooltip" title="Submit"><i class="fas fa-paper-plane"></i> Submit</button>
+						</div>
+
+						<!-- <label>Issues/Concerns/Errors</label>
+						<div class="col-12">
+							<textarea name="editor" id="editor" placeholder="Type the content here">
+	  
+							</textarea>
+						</div> -->
+						
+					</fieldset>
+							
+				</form>				
+			</div>
+
+			<div class="row">
+				<div class="col-12 text-end">
+					<button type="button" onclick="closethis()" class="btn btn-warning" data-toggle="tooltip" title="Close"><span class="fa fa-window-close"></span></button>	
+				</div>				
+		   	</div>
+		   	<div class="row">
+				<div class="col-12" id="divattachment">
+					<div class="col-12">
+						<h5>Attachment/s:</h5>
+						<button type="button" class="btn btn-light" onclick="addimages();return false;" id="addimage">Add Image (max image size is 5mb)</button>
+						<br><br>
+					</div>
+					<div class="col-12">
+						<div id="divimages"></div>
+					</div>
+				</div>				
+			</div>	
+
+			<section>
+				<div id="attachmentdiv"></div>
+			</section>
+			<br/>
+		</div>
+
+		<div id="list">
+			<div class="row g-1 py-2">				
+				<div class="offset-md-10 col-md-2 filterbutton">
+					<button type="button" onclick="adddetails()"  class="btn mt-2 addbutton" data-toggle="tooltip" title="New Record"><i class="fa fa-plus"></i> New Record</button>
+				</div>
+			</div>
+		   	<small class="badge badge-pill mx-3 py-1">List of Issues</small>
+			<div class="row g-1 py-2 border-top border-bottom tablecontainer">			
+				<table class="table" id="ds">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Ticket No.</th>
+							<th>Subject</th>
+							<th>Date Filed</th>
+							<th>Status</th>
+							<th></th>
+							
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<!-- <br/>
+				<div class="text-end"><button type="button" onclick="adddetails()" class="btn btn-primary addbutton" data-toggle="tooltip" title="New Record"><span class="fa fa-folder-plus"></span></button> </div> -->
+			</div>	
+		
+		</div>
+	</div>
+</div>
+<div id="header"></div>
+<div id="myDetails" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"><span id="titledetails"></span></h5>
+				<!-- <button type="button" class="btn-close" onclick="hidemyShowImage()"></button> -->
+				<button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+			  <div id="divdetails"></div>
+		  	</div>
+			<div class="modal-footer">
+				<!-- <button type="button" class="btn btn-warning" onclick="closemyDetails()">Close</button> -->
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/ckeditor/build/ckeditor.js"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/raiseissueView.js"></script>
+
+<script src="js/src/attachment.js"></script>

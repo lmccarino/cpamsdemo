@@ -1,0 +1,548 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@200;300;700&family=Quicksand:wght@300;500;700&family=Roboto:wght@300;400;700&display=swap');
+
+html,
+body{
+	/*width: 100vh;
+	height: 100vw;*/
+	/*width: 100%;
+	height: auto;*/
+	height: 100vh;
+	/*height: auto;*/
+	/*margin: 0;*/
+	/*background-image: url('../images/lingap_welcomepage_bg_mobile2.svg');*/
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	/*background-color: #17252a;*/
+}
+
+/*body.logged{
+	background-image: url('../images/lingap_page_bg_mobile.svg');
+}
+*/
+.landingcontainer{
+	/*overflow: hidden;*/
+	padding: 15px;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 35px;
+	padding-top: 55px;
+}
+
+.landingcontainer h1,
+.landingcontainer h3{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	color: #ffffff;
+	/*color: #2b7a78;*/
+	/*font-size: 2rem;*/
+}
+
+.landingcontainer h1{
+	color:  #ffffff;/*#17252A;*/
+	/*color: #2b7a78;*/
+	/*color: #feffff;*/
+	font-size: 3.5rem;
+	line-height: 3.5rem;
+}
+
+.definitioncontainer{
+	width: 100%;
+	height: auto;
+	color: black;/*#17252A;*//*#feffff;*/
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 500;
+	line-height: 1.5em;
+	padding-bottom: 20px;
+	text-align: justify;
+}
+
+.buttoncontainer{
+	width: 100%;
+	height: auto;
+	margin-top: 15%;
+	margin-bottom: 10%;
+}
+
+.buttoncontainer button{
+	width: 100%;
+	height: 10vh;
+	margin-top: 5px;
+	border: 1px solid #2b7a78;
+	border-radius: 25px;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 700;
+	line-height: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.meds { display: none; }
+
+#lModal button.btnLogOut,
+#loginbutton{
+	background-color: #2b7a78;
+	color: white;/*#feffff;*/
+}
+
+#lModal button.btnCancelLogOut,
+#applybutton{
+	background-color: #feffff;/*#17252a;*/
+	color: #2b7a78;
+}
+
+#lModal button.btnLogOut:hover{
+	border: 1px solid #2b7a78;
+	background-color: white;
+	color: #2b7a78;
+}
+#lModal button.btnCancelLogOut:hover{
+	border: 1px solid #2b7a78;
+	/*background-color: white;
+	color: #2b7a78;*/
+}
+
+#loginverifybutton{
+	width: 100%;
+	background-color: #2b7a78;
+	color: white;/*#feffff;*/
+	margin-top: 10px;
+}
+
+.landingfooter{
+	width: 100%;
+	height: 25px;
+	text-align: center;
+	background-color: white;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 300;
+	color: #17252A;/*#3aafa9;*/
+}
+
+.landingfooter b{
+	color: black;
+	font-weight: 700;
+}
+
+.toplogocontainer{
+	z-index: 2;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+/*
+	LOGIN
+*/
+#loginform{
+	width: 90%;
+}
+#loginform input{
+	color: #17252A;
+	line-height: 0.8em;
+	margin-top: 10px;
+	border-radius: 0;
+	/*border-top: none;
+	border-left: none;
+	border-right: none;*/
+}
+
+/*
+	Pages
+*/
+.pagecontainer{
+	width: 60%;
+	height: auto;
+	margin: 50px 20% 0 20%;
+}
+.pagecontainer .card{
+	border: none;
+	background-color: transparent;
+}
+.pagecontainer .card-body{
+	background-color: #def2f1;
+	border-radius: 15px;
+	border: 2px solid #def2f1;
+}
+.pagecontainer .card a{
+	text-decoration: none;
+	color: #17252a;
+}
+.pagecontainer .card-body:hover{
+	background-color: #2b7a78;
+	border: 2px solid #2b7a78;
+	color: white;
+}
+.container{
+	overflow-y: auto;
+	overflow-x: hidden;
+	/* background-color: rgba(255,255,255,0.8); */
+	padding-bottom: 50px;
+}
+.container h4{
+	color: #17252a;
+	font-weight: bolder;
+	border-left: 10px solid #3aafa9;
+	background-color: #def2f1;
+	/*border-top: 1px solid #3aafa9;*/
+	/*border-bottom: 1px solid #3aafa9;*/
+	/*border-left-color: #3aafa9;*/
+	line-height: 2.5rem;
+}
+#content{
+	background-color: rgba(255,255,255,0.9);
+	/* background-color: white; */
+	height: auto;
+/*	overflow: auto;*/
+}
+.tablecontainer{
+	background-color: white;
+	margin-bottom: 25px;
+}
+
+/*
+	DROPDOWN LOGIN USER
+*/
+.dropdownbtn{
+  color: #17252a;
+  padding-top: 16px;
+  padding-right: 10px;
+  padding-bottom: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.dropdown {
+/*#loginusercontainer{*/
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+.show {display: block;}
+#notiContent{min-width: 200px;}
+.dropdown-content a.btn-seeall{
+	color: #3aafa9;
+	font-weight: bolder;
+	font-size: 0.8em;
+}
+.indicator{
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 63%;
+/*	bottom: 63%;*/
+	background-color: red;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.noti-count{
+	color: white;
+	font-size: 0.5em;
+}
+
+#profileimg img{
+	border-radius: 1em;
+}
+
+/*
+	FILTER BOX / FLOATING LABEL FORM
+*/
+small.badge{
+	background-color: #2b7a78;
+	z-index: 3;
+}
+.form-floating label{
+	color: #2b7a78;
+	font-size: 0.8rem;
+	font-weight: bold;
+}
+.form-floating input:focus,
+.form-floating textarea:focus{
+	box-shadow: none;
+	border: 2px solid #3aafa9;
+}
+.filterbutton button{
+	width: 100%;
+	border-radius: 25px;
+	background-color: #2b7a78;
+	color: white;
+	font-weight: bolder;
+}
+.filterbutton button:hover{
+	background-color: #17252a;
+	color: white;
+	font-weight: bolder;
+}
+
+.filterbutton a,
+.filterbutton button.addDep
+{
+/*	font-size: 0.9rem;*/
+	width: auto;
+	font-weight: bold;
+	color: #2b7a78;
+	text-decoration: none;
+	border: 2px solid white;
+	background-color: white;
+	text-align: right;
+}
+
+.filterbutton a:hover,
+.filterbutton button.addDep:hover{
+	border: 2px solid #2b7a78;
+}
+
+.select2-selection textarea{
+	
+	color: #2b7a78;
+	font-size: 0.8rem;
+	font-weight: bold;
+}
+/*
+	UPLOAD BOX
+*/
+.file{
+	border: 1px solid #2b7a78;
+}
+.custom-file-button input[type=file] {
+  margin-left: -2px !important;
+}
+
+.custom-file-button input[type=file]::-webkit-file-upload-button {
+  display: none;
+}
+
+.custom-file-button input[type=file]::file-selector-button {
+  display: none;
+}
+.custom-file-button label {
+  border: 1px solid #2b7a78;
+  background-color: #2b7a78;
+  color: white;
+}
+.custom-file-button:hover label {
+  border: 1px solid #2b7a78;
+  background-color: #17252a;
+  cursor: pointer;
+}
+#imgupload,
+#sigupload{
+	height: 150px;
+	width: 150px;
+}
+
+/*
+	LOADING STATE MODAL
+*/
+#mySave img{
+	width: 100px;
+	height: auto;
+}
+
+/*
+	MOBILE VIEW
+*/
+@media screen and (max-width:767px){
+	body{
+		background-image: url('../images/lingap_welcomepage_bg_mobile2.svg');
+	}
+
+	body.logged{
+		background-image: url('../images/lingap_page_bg_mobile.svg');
+	}
+
+	#time{
+		display: none;
+	}
+
+	.header1 span h5{
+		display: none;
+	}		
+	.btn-notification{
+		margin-right: 10px;	
+	}
+
+	.tablecontainer{
+		overflow: scroll;
+	}
+
+	.profilecredscontainer,
+	.profileimgcontainer{
+		width: 90vw;
+	}
+}
+
+/*
+Desktop View
+*/
+
+@media screen and (min-width:768px){
+	body{
+		width: 100%;
+		height: 100vh;
+		/*margin: 0;*/
+		background-image: url('../images/lingap_welcomepage_bg2.svg');
+	/*	background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-color: white;*/
+		/*background-color: #17252a;*/
+		overflow: hidden;
+	}
+
+	body.logged{		
+		min-height: 100vh;
+		background-image: url('../images/lingap_page_bg.svg');
+		background-repeat: no-repeat;
+		background-color: white;
+		overflow-y: auto;
+	}
+
+	.landingcontainer{
+		width: 65%;
+		margin: 10px;
+	}
+
+	.landingcontainer h1{
+		font-size: 3rem;
+		line-height: 3.3rem;
+	}
+
+	.definitioncontainer{
+		width: 80%;
+		font-size: 0.8rem;
+		padding-bottom: 0;
+	}
+	
+	.buttoncontainer{
+		width: 60%;
+		height: 12vh;
+		margin-top: 15px;
+		margin-bottom: 10px;
+	}
+
+	.buttoncontainer button{
+		width: 50%;
+		float: left;
+	}
+
+	/*#loginbutton{
+		border: 1px solid #2b7a78;
+		background-color: #2b7a78;
+		color: #feffff;
+	}
+
+	#applybutton{
+		border: 1px solid #2b7a78;
+		background-color: #17252a;
+		color: #2b7a78;
+	}*/
+
+	.landingfooter{
+		width: 90%;
+		height: 25px;
+		position: absolute;
+		bottom: 0;
+		margin-left: 8px;
+		text-align: left;
+		background-color: transparent;
+		font-size: 0.8rem;
+	}
+
+}
+
+@media screen and (min-width:1024px){
+	
+	.landingcontainer{
+		width: 90%;
+		overflow: hidden;
+		padding: 15px;
+		margin-left: 5%;
+		margin-right: 5%;
+		margin-bottom: 35px;
+	}
+
+	.landingcontainer h1{
+		font-size: 4rem;
+		line-height: 3.5rem;
+	}
+
+	.definitioncontainer{
+		width: 45%;
+		font-size: 0.9rem;
+	}
+	
+	.buttoncontainer{
+		width: 45%;
+		height: auto;
+		margin-top: 15px;
+		margin-bottom: 10px;
+	}
+
+	.buttoncontainer button{
+		width: 48%;
+		float: left;
+		margin-right: 5px;
+	}
+
+	/*#loginbutton{
+		border: 1px solid #2b7a78;
+		background-color: #2b7a78;
+		color: #17252a;
+	}
+
+	#applybutton{
+		border: 1px solid #2b7a78;
+		background-color: #17252a;
+		color: #2b7a78;
+	}*/
+
+	#loginbutton:hover,
+	#applybutton:hover,
+	#loginverifybutton: hover{
+		border: 5px solid #17252a;
+		color: #17252a;
+	}
+
+	/*#applybutton:hover{
+		border: 5px solid #2b7a78;
+		color: #2b7a78;
+	}*/
+
+	.landingfooter{
+		height: 25px;
+		position: absolute;
+		bottom: 0;
+		margin-left: 5%;
+		text-align: left;
+		background-color: transparent;
+	}
+}

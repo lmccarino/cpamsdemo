@@ -1,0 +1,126 @@
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<!-- <div class="modal-header"> -->
+				
+			<!-- </div> -->
+			<div class="modal-body">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
+				<br/>
+				<center>
+					<img src="assets/images/cpams_logosample2.png" style="width: 100px; height: 100px;">
+					<h4>CPAMS</h4>
+					<!-- <h6>CITY PUBLIC ASSISTANCE MANAGEMENT SYSTEM</h6> -->
+					<!-- <hr/> -->
+					<h6 style="color:#3aafa9;"><i class="fa-solid fa-key"></i></h6>
+					<form id="loginform">
+						<!-- <label for="emaillog" >Email</label> -->
+						<input type="email" class="form-control" id="emaillog" name="email" required="true" placeholder="Email">
+						<!-- <label for="passwordlog" >Password</label> -->
+							<input type="password" class="form-control" id="passwordlog" name="password" required="true" placeholder="Password">
+		
+							<div class="form-check">
+							  <input class="form-check-input" type="checkbox" value="" id="showpassword" onclick="displaypassword()">
+							  <label class="float-start mt-2 text-secondary font-monospace" for="showpassword">Show Password</label>
+							</div>							
+							<!-- <div class="form-floating mb-3">
+								<input type="email" class="form-control" id="emaillog" name="email" required="true" placeholder="name@example.com">
+								<label for="email" >Email</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input type="password" class="form-control" id="passwordlog" name="password"  required="true" placeholder="Passowrd">
+								<label for="password">Password</label>
+							</div> -->
+						<!-- <br/> -->
+						<!-- <div class="buttoncontainer"> -->
+							<button type="button" class="btn btn-primary" onclick="verify()" id="loginverifybutton">LogIn</button>
+					    <hr/>
+						<div class="col-12 text-center" id="divwebauthn">
+							<button type="button" class="btn bn-link" onclick="webauthn()"><i class="fa-solid fa-fingerprint"></i> Login using fingerprint</button>
+						</div>
+						<!-- </div> -->
+					</form>
+				</center>
+				<!-- <div class="col">
+					
+				</div> -->
+			</div>
+			<!-- <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div> -->
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="cModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="text-align:center">
+        <strong><span id="cMessage"></span></strong>
+      </div>
+      <div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="yes()">Yes</button>
+        <button type="button" class="btn btn-secondary" onclick="no()">No</button>        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="lModal" tabindex="-1" role="dialog" aria-labelledby="lModalLabel">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header">        
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> -->
+      <div class="modal-body" style="text-align:center">
+        <strong><h4>Log Out</h4></strong>
+        <hr/>
+        <small class="mt-3 mb-2">Are you sure want to log out?</small>
+     <!--  </div>
+      <div class="modal-footer"> -->
+      	<div class="mt-2 mb-1">      		
+					<button type="button" class="btn btnLogOut" onclick="logout()">Yes, continue log Out</button>
+				</div> 	
+				<div class="mt-2 mb-1"> 				
+	        <button type="button" class="btn btnCancelLogOut" onclick="lnot()">Cancel</button>
+      	</div>       
+      </div>
+    </div>
+  </div>
+</div>
+<div id="mySidenav" class="sidenav" style="background-color: rgba(0, 0, 0, 0.8);"></div>
+<div id="mySave" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      
+      <div class="modal-body">
+			<div class="col text-center">
+				<img class="img-fluid" alt="saving" src="images/saving.gif">
+			</div>
+		  <div class="col" style="text-align:center"><span>Saving Please Wait</span></div>
+	  </div>
+      
+    </div>
+
+  </div>
+</div>
+<div id="myLoading" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      
+      <div class="modal-body">
+			<div class="col text-center">
+				<img class="img-fluid" alt="saving" src="images/saving.gif">
+			</div>
+		  <div class="col" style="text-align:center"><span>Loading Please Wait</span></div>
+	  </div>
+      
+    </div>
+
+  </div>
+</div>

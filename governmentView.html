@@ -1,0 +1,55 @@
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="images/icons/72.png">
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+</head>
+<body>
+	<div id="header1"></div>
+	<div class="container">
+		
+		<div id="content">
+				
+			<div class="pt-3 mt-1"><h4 class="px-3">Government - Request Assistance Form</h4></div>
+			<div id="list" style="display:none"></div>
+
+			<div id="details" >
+				<div id="raf"></div>
+				<div class="row" id="divattachment" style="display:none">
+					<div class="col-12">
+						<h5>Attachment/s:</h5>
+						<button type="button" class="btn btn-light" onclick="addimages();return false;" id="addimage">Add Image (max image size is 3mb)</button>
+						<br><br>
+					</div>
+					<div class="col-12">
+						<div id="divimages"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="header"></div>
+	<section><div id="attachmentdiv"></div></section>
+</body>
+
+<script src="js/jquery.min.js?v=3"></script>
+<script src="js/datatables.min.js?v=3"></script>
+<script src="js/bootstrap.bundle.min.js?v=3"></script>
+<script src="js/toastr.min.js?v=3"></script>
+<script src="js/bootbox.min.js?v=3"></script>
+<script src="js/select2.min.js?v=3"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/src/main.js?v=3"></script>
+<script src="js/src/attachment.js?v=3"></script>
+<script src="js/src/raf.js?v=15"></script>
+<script src="js/src/governmentView.js?v=5"></script>
+
+
+

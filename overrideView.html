@@ -1,0 +1,259 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="images/icons/72.png">
+    <title>CPAMS</title>
+    <link rel="stylesheet" href="css/main2.css">
+
+     <style>
+      
+        .overridedropbtn {          
+          color: #17252a;
+        }
+
+        .overridedropdown {
+          position: relative;
+          display: inline;
+        }
+
+        .overridedropdown-content {
+          display: none;
+          position: absolute;
+          right: 15px;
+          top:-2px;
+          width: 380px;
+          z-index: 1;
+        }
+
+        .overridedropdown-content a {
+          color: black;
+          text-decoration: none;
+          font-size: 0.8em;
+          font-weight: bold;
+        }
+
+        .overridedropdown-content a:hover {
+            background-color: white;
+            color: #17252a;
+        }
+        .overridedropdown:hover .overridedropdown-content {display: block;}
+        .overridedropdown:hover .overridedropbtn { border: 1px solid #17252a;}
+
+        button {
+            border-radius : 50vh;
+        }
+
+        .corner {
+            border-radius : 50vh;
+        }
+
+        .rect{
+            width : 100%;
+            height : 40px;
+            border-radius : 5%/50%;
+        }
+
+        .corner-right {
+            border-top-right-radius: 50vh;
+            border-bottom-right-radius: 50vh;
+        }
+        .corner-left {
+            border-top-left-radius: 50vh;
+            border-bottom-left-radius: 50vh;
+        }
+
+        label {
+            color: #000080;
+            font-weight: bold;
+            display: block;
+        }
+    </style>
+
+          <!--   border-top-left-radius: 50vh;
+            border-bottom-left-radius: 50vh;
+        }
+    </style> -->
+</head>
+<body>
+    <div id="header1">
+    </div>
+    <div class="container">
+        <div id="content">
+            <div class="row">
+                <!-- <div class="shadow p-2 mb-5 bg-white rounded w-100"><h4 class="text-center">Override Amount</h4>
+            </div> -->
+             <div class="pt-3 mt-1"><h4 class="px-3">Override Amount</h4></div>
+            <div class="col-12"><br/></div>
+                <div class="col-12 tablecontainer">	
+                    <table id="ds" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <!-- <th></th> -->
+                                <th>RAF No.</th>
+                                <th>LastName</th>
+                                <th>FirstName</th>
+                                <th>MiddleName</th>
+                                <th>Override Note</th>
+                                <th>Date Applied</th>
+                                <th>Bill</th>
+                                <th>Allocated</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="details">
+            </div>	   
+        </div>
+    </div>
+
+    <div id="header">
+    </div>
+    <div id="overrideModal" class="modal" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                     <h4 class="modal-title"><span>RAF Details</span></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body">
+                    <form name="entryform" id="entryform">
+                        <fieldset name="myfields">
+                        <div class="row">
+
+                            <div class="col-sm-4">
+                                <div class="form-floating">
+                                    <input type = hidden  id="trans" name="trans" value="OVERRIDE"/>
+                                    <input type = hidden  id="id" name="id"/>
+                                    <input type = hidden  id="tk" name="tk"/>
+                                    <input type = text  id="raf" name="raf" class="form-control input-group-sm" readonly/>
+                                    <label> RAF Num</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-floating">
+                                    <input type = text  id="dte" class="form-control input-group-sm"  readonly/>
+                                    <label> Date</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-floating">
+                                    <input type = text  id="loc" class="form-control input-group-sm"  readonly/>
+                                    <label> Location</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-floating">
+                                    <input type = text  id="lname" class="form-control input-group-sm" readonly/>
+                                    <label> Lastname</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-floating">
+                                    <input type = text  id="fname" class="form-control input-group-sm"  readonly/>
+                                    <label> Firstname</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-floating">
+                                    <input type = text  id="mname" class="form-control input-group-sm"  readonly/>
+                                    <label> Middlename</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-floating">
+                                    <input type = text  id="addr" class="form-control input-group-sm" readonly/>
+                                    <label> Address</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-floating">
+                                    <input type = text  id="brgy" class="form-control input-group-sm"  readonly/>
+                                    <label> Barangay</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-floating">
+                                    <input type = text  id="note" name="notetag" maxlength="250" class="form-control input-group-sm"  readonly/>
+                                    <label> Override Note <i class="fas fa-exclamation-circle text-danger"></i></label>
+                                </div>
+                            </div>
+                        </div>    
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-floating">
+                                    <input type = text id="case" class="form-control input-group-sm"  readonly/>
+                                    <label> Case</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-floating">
+                                    <input type = text id="provider" name = "provider" class="form-control input-group-sm"  readonly/>
+                                    <label> Provider</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-floating">
+                                    <input type = text id="bill" class="form-control input-group-sm"  readonly/>
+                                    <label> Bill Amount</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-floating">
+                                    <input type = text id="amt" name = "amt" class="form-control input-group-sm"  readonly/>
+                                    <label> Allocated Amount</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-floating">
+                                    <input type = number  id="amtApproved" name="amtApproved" class="form-control input-group-sm" maxlength="10" required/>
+                                    <label> Override Approved Amount <i class="fas fa-exclamation-circle text-danger"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                </form>	
+                    <div class="modal-footer">
+                        <button type="button" onclick="showAdd()" class="btn btn-primary" id="btnGL" data-toggle="tooltip" title="View Guarantee Letter" style="display:none"><span class="fa fa-print"></span> GL</button>
+                        <button type="button" onclick="showAdd()" class="btn btn-info" id="btnIntake" data-toggle="tooltip" title="View Intake Form" style="display:none"><span class="fa fa-print"></span> Intake</button>
+                        <button type="button" onclick="showAdd()" class="btn btn-warning" id="btnCert" data-toggle="tooltip" title="View Certificate" style="display:none"><span class="fa fa-print"></span> Cetificate</button>
+                        <button name="btnSave" type="button" onclick="saveThis(this.form)" class="btn btn-success" id="btnSave">Approve</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/overrideView.js?v=3"></script>

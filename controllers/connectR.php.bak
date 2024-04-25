@@ -1,0 +1,14 @@
+<?php
+
+     
+     $connRead =  new mysqli("10.0.1.8", "readuser", "read@2022","cpams2");  
+
+  
+	//$connRead =  new mysqli("localhost", "readuser", "read@2022","cpams2");  
+
+     if ($connRead->connect_error) {
+        die('Connect Error (' . $connRead->connect_errno . ') ' . $connRead->connect_error);
+     }
+	 $connRead->set_charset("utf8");
+	 $connRead->query("SET time_zone = '+8:00'");
+?>

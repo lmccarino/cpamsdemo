@@ -1,0 +1,598 @@
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="images/icons/72.png">
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+
+</head>
+<body>
+<div id="header1"></div>
+<div class="container">	
+	<div id="content">
+		
+		<div class="pt-3 mt-1"><h4 class="px-3">Received Issue</h4></div>
+	   
+		<div id="details" style="display:none">
+	   
+			<div class="row">
+				<div class="col-12 text-end"><button type="button" class="close" onclick="closethis()"></button>
+				</div>
+			
+				<form id="entryform" action="" method="post" style="width:100%" name="entryform" enctype="multipart/form-data" >
+				
+					<fieldset id="myfields" name="myDetails">												
+						<input type="hidden" name="tk">
+						<input type="hidden" name="trans">
+						<input type="hidden" name="ckcontent">
+						<div class="row">
+							<div class="col-3 g-1">								
+								<div class="form-floating mx-1 p-1">
+									<input type="number" class="form-control" id="idissues" name="idissues" readonly/>
+									<label>Ticket Number</label>
+								</div>
+							</div>
+							<div class="col-9 g-1">
+								<div class="form-floating mx-1 p-1">
+									<textarea class="form-control" id="subject" name="subject" rows="2" readonly></textarea>
+									<label>Subject</label>
+								</div>
+							</div>
+							
+						</div>
+							<label>Issues/Concerns/Errors</label>
+							<div class="col-12">
+								<textarea name="editor" id="editor" placeholder="Type the content here" readonly>
+          
+								</textarea>
+							</div>
+							<div class="form-row">
+								<div class="form-group col">
+									<label>Date Filed</label>
+									<input type="text" id="datefiled" name="datefiled" class="form-control" readonly> 
+									
+								</div>
+								<div class="form-group col">
+									<label>Filed by</label>
+									<input type="text" id="filedby" name="filedby" class="form-control" readonly> 
+									
+								</div>
+							</div>
+						
+					
+					<br/>
+					
+					
+				</fieldset>
+							
+				</form>
+				<div id="divtrans"></div>
+					<form id="entryform2" style="width:100%">
+						<input type="hidden" id="idissuetrans" name="idissuetrans">
+						<input type="hidden" name="tk">
+						<input type="hidden" name="trans">
+						<input type="hidden" name="idissues">
+						<div class="form-row">
+								
+								<div class="form-group col">
+									<label>Remarks</label>
+									<textarea class="form-control" id="remarks" name="remarks" rows="2"></textarea>
+								</div>
+						</div>
+						<div class="form-row">
+								<div class="form-group col">
+									<label>Category</label>
+									<select class="form-control" id="category" name="category">
+										<option value="SYSTEM ERROR">System Error</option>
+										<option value="USER EXPERIENCE">User Experience</option>
+										<option value ="PROCEDURAL OPERATIONS">Procedural Operations</option>
+									</select>
+									
+								</div>
+								<div class="form-group col">
+									<label>Transaction Date</label>
+									<input type="text" id="transdate" name="transdate" class="form-control" readonly> 
+									
+								</div>
+								<div class="form-group col">
+									<label>Serviced by</label>
+									<input type="text" id="userid" name="userid" class="form-control" readonly> 
+									
+								</div>
+							</div>
+					</form>
+				<div class="col-12">
+						<button type="button" onclick="savedetails()" class="btn btn-primary savebutton" id="savebut" data-toggle="tooltip" title="Save"><span class="fa fa-save"></span></button>
+						<button type="button" onclick="submitdetails()" class="btn btn-info submitbutton" id="submitbutton" data-toggle="tooltip" title="Submit"><span class="fas fa-paper-plane"></span></button>
+					
+				</div>
+				
+				
+		</div>
+		<div class="row">
+			<div class="col-12 text-right">
+					<button type="button" onclick="closethis()" class="btn btn-warning" data-toggle="tooltip" title="Close"><span class="fa fa-window-close"></span></button>	
+			</div>
+			
+	   </div>
+	   <div class="row">
+			<div class="col-12" id="divattachment">
+					<div class="col-12">
+						<h5>Attachment/s:</h5>
+						<button type="button" class="btn btn-light" onclick="addimages();return false;" id="addimage">Add Image (max image size is 5mb)</button>
+						<br><br>
+					</div>
+					<div class="col-12">
+						<div id="divimages"></div>
+					</div>
+			</div>
+			
+		</div>
+		
+	
+		<section><div id="attachmentdiv"></div></section>
+			<br/>
+	</div>
+	<div id="list"  class="row" style="width:100%">
+	   <div class="shadow p-2 mb-5 bg-white rounded w-100"><h4 class="text-center">Raised Issues</h4></div>
+		<div class="col-12">
+			<div class="text-right"><button type="button" onclick="adddetails()" class="btn btn-primary addbutton" data-toggle="tooltip" title="New Record"><span class="fa fa-folder-plus"></span></button> </div>
+			<br/>
+			<table class="table table-hover" id="ds">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Ticket No.</th>
+						<th>Subject</th>
+						<th>Date Filed</th>
+						<th>Status</th>
+
+						
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<br/>
+			<div class="text-right"><button type="button" onclick="adddetails()" class="btn btn-primary addbutton" data-toggle="tooltip" title="New Record"><span class="fa fa-folder-plus"></span></button> </div>
+
+		</div>	
+	
+	</div>
+	</div>
+</div>
+<div id="header"></div>
+<div id="myDetails" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+		<h5 class="modal-title"><span id="titledetails"></span></h5>
+        <button type="button" class="close" onclick="hidemyShowImage()">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+		  <div id="divdetails"></div>
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" onclick="closemyDetails()">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/jquery.toaster.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/src/main.js"></script>
+<script src="js/ckeditor/build/ckeditor.js"></script>
+<script>
+
+let xtitle ='Receive Issue';
+function submitdetails(){
+let tk = qs['tk'];
+let idissues = document.getElementById('idissues').value;
+	$.get( "controllers/raiseissueController.php",{"tk":tk, "idissues":idissues, "trans":"submit"}, function( d ) {
+		$.toaster({ priority : 'success', title : xtitle, message : 'Record Saved'});
+		$('#ds').DataTable().ajax.reload(null,false);
+		document.getElementById('savebut').style.display = "none";
+		document.getElementById('submitbutton').style.display = "none";
+		
+	});
+}
+function savedetails(){
+var myform = document.getElementById('entryform2');
+
+var data = $(myform).serialize();
+let els = myform.elements;
+var cont = 1;
+
+//var data = new FormData(myform);
+if (els.namedItem('remarks').value == "") {$.toaster({ priority : 'danger', title : xtitle, message : 'Invalid remarks'});cont = -1;}
+
+if (cont > -1 ) {
+
+
+$.ajax({
+            url: 'controllers/receiveissueController.php',
+			data: data,
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			type: 'GET',
+            success: function(data) {
+						xform = document.getElementById('entryform2').elements;
+						xform.namedItem('trans').value = "UPDATE";
+						xform.namedItem('idissuetrans').value = data['idissuetrans'];
+											
+						
+						document.getElementById('divattachment').style.display = "block";
+						document.getElementById('keyvalue').value = data['idissues'];
+						document.getElementById('keyname').value = 'idissues';
+						getattachments(data['idissues']);
+						initload();
+						$('#ds').DataTable().ajax.reload(null,false);
+						$.toaster({ priority : 'success', title : xtitle, message : 'Record Saved'});
+						document.getElementById('submitbutton').style.display = "inline";
+						
+					}
+			});
+	
+
+
+}
+}
+
+function filterdata(){
+
+document.getElementById('details').style.display="none";
+document.getElementById('list').style.display="block";
+	var tk = qs['tk'];
+	var today = new Date();
+	var asDate = new Date();
+	var options = { year: 'numeric', month: 'long', day: 'numeric' };
+	var stoday = today.toLocaleDateString("en-US", options);
+	var caption = "As of "+ asDate.toLocaleDateString("en-US", options);
+
+	var table = $('#ds').DataTable( {"destroy":true, 
+		dom: 'lfrtBip', 
+		buttons: [
+            'copy', {extend : 'excelHtml5',title : 'Received Issues'
+			, messageTop: caption, messageBottom: '\n Prepared by: '+ fullname + ' ' +stoday, footer:true}, 
+			{extend: 'pdf', 
+			title : 'Raised Issues'
+			, messageTop: caption, messageBottom: '\n Prepared by: '+ fullname + ' ' +stoday, footer:true},
+			{extend: 'print',
+			title : 'Raised Issues',
+			 messageTop: caption, messageBottom: '\n Prepared by: '+ fullname + ' ' +stoday, footer:true
+			
+			}
+        ],
+		"ajax": "controllers/receiveissueController.php?trans=getallactive&tk="+tk,
+        "columns": [
+			{"className":'details-control',
+												 "orderable":      false,
+												 "data":           null,
+												 "defaultContent": ''},
+			{ "className":'details',"data": "idissues"},
+            { "className":'details',"data": "subject"},
+			{ "className":'details',"data": "datefiled" },
+			{ "className":'details',"data": "status"}
+		        ],
+        "order": [[1, 'asc']]
+    } );
+	
+	$('#ds tbody').off();
+	$('#ds tbody').on('click', 'td.details', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+
+		
+			getdetails(row.data());
+     
+        
+    } );
+	$('#ds tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+
+		if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+			
+        }
+        else {
+            // Open this row
+            row.child( format(row.data())).show();
+            tr.addClass('shown');
+			getchild(row.data());
+        }
+        
+    } );
+	setTimeout(checkmodule,1000);
+	
+}
+
+function format(row){
+var id = row['idissues'];
+
+var elem = document.getElementById(id);
+if (elem){
+  elem.parentNode.removeChild(id);
+}
+var xcontent = '<table class="table table-sm" id="idissues'+id+'" style="width:100%">';
+    xcontent += '<thead><tr><th>Remarks</th><th>Status</th><th>StartDate</th><th>EndDate</th><th>Receiver</th></tr></thead><tbody></tbody></table>';
+	return xcontent;
+}
+function getchild(data){
+var tableid = '#idissues'+data['idissues'];
+
+var tk = qs['tk'];
+
+	var today = new Date();
+	var asDate = new Date();
+	var options = { year: 'numeric', month: 'long', day: 'numeric' };
+	var stoday = today.toLocaleDateString("en-US", options);
+	var caption = "As of "+ asDate.toLocaleDateString("en-US", options)+ '\n Ticket Number: '+data['idissues'];
+
+	var table = $(tableid).DataTable( {"destroy":true,"searching":false,
+		dom: 'lfrtBip', 
+		buttons: [
+            'copy', {extend : 'excelHtml5',title : 'Raised Issues'
+			, messageTop: caption, messageBottom: '\n Prepared by: '+ fullname + ' ' +stoday, footer:true}, 
+			{extend: 'pdf', 
+			title : 'Raised Issues'
+			, messageTop: caption, messageBottom: '\n Prepared by: '+ fullname + ' ' +stoday, footer:true},
+			{extend: 'print',
+			title : 'Raised Issues',
+			 messageTop: caption, messageBottom: '\n Prepared by: '+ fullname + ' ' +stoday, footer:true
+			
+			}
+        ],
+		"ajax": "controllers/raiseissueController.php?trans=gettrans&idissues="+data['idissues']+"&tk="+tk,
+        "columns": [
+			
+            { "className":'detail2',"data": "remarks"},
+			{ "className":'details2',"data": "status"},
+			{ "className":'details2',"data": "transdate"},
+			{ "className":'details2',"data": "enddate"},
+			{ "className":'details2',"data": "fullname"} 
+			
+		        ],
+        "order": [[2, 'desc']]
+    } );
+	
+	$(tableid+' tbody').off();
+	$(tableid+' tbody').on('click', 'td.details2', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ 
+        
+			showdetails(row.data());
+        
+    } );
+	
+}
+function showdetails(d){
+	let xstring = "<label>Remarks</label><p>"+d['remarks']+"</p>";
+	xstring += "<p>Status: <strong>"+d['status']+"</strong></p>";
+	xstring += "<p>Transaction Date: <strong>"+d['transdate']+"</strong> <label>End Date: <strong>"+d['enddate']+"</strong>";
+	xstring += "<p>Received by: <strong>"+d['fullname']+"</strong></p>";
+	document.getElementById('divdetails').innerHTML = xstring;
+	document.getElementById('titledetails').innerHTML = "Ticket Number: <strong>"+d['idissues']+"</strong>";
+	$("#myDetails").modal("show");
+}
+function closemyDetails(){
+	$("#myDetails").modal("hide");
+}
+
+
+
+function getdetails(data){
+	document.getElementById('list').style.display="none";
+	document.getElementById('details').style.display="block";
+	editor.setData(decodeHtml(data['content']));
+	document.getElementById('subject').value = data['subject'];
+	document.getElementById('datefiled').value = data['datefiled'];
+	document.getElementById('filedby').value = data['filedby'];
+	let xform = document.getElementById('entryform2').elements;
+						xtrans = xform.namedItem('trans');
+						xtrans.value = "ADD";
+
+	xform.namedItem('idissues').value = data['idissues'];
+	var xdate = new Date();
+
+	xform.namedItem('transdate').value = xdate;
+	xform.namedItem('userid').value = fullname;
+	document.getElementById('keyvalue').value = data['idissues'];
+	document.getElementById('keyname').value = 'idissues';
+	$('.savebutton').show();
+	//editor.disableReadOnlyMode( 'feature-id' );
+	initload();
+	getattachments(data['idissues']);
+	$('.submitbutton').hide();
+	
+	
+}
+
+function deletethisrec(idissues, subject){
+
+bootbox.confirm({
+    message: 'Delete '+ subject + ' ?',
+    buttons: {
+        confirm: {
+            label: 'Yes',
+            className: 'btn-danger'
+        },
+        cancel: {
+            label: 'No',
+            className: 'btn-default'
+        }
+    },
+    callback: function (result) {
+        if (result){
+			var tk=qs['tk'];
+			$.get("controllers/raiseissueController.php",{"trans":"delete","idissues":idissues,"tk":tk},function(data){
+										if (data['idissues']>-1){
+											$.toaster({ priority : 'success', title : 'Raise Issue', message : 'Record Deleted'});
+											
+									        $('#ds').DataTable().ajax.reload(null,false);} else { $.toaster({ priority : 'danger', title : 'Raise Issue Record', message : 'Record cannot be deleted'});}
+							        },'json');
+		}
+    }
+});
+}
+
+function closethis(){
+document.getElementById('details').style.display ="none";
+document.getElementById('list').style.display="block";
+}
+
+
+function decodeHtml(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+}
+
+
+function PrintElem()
+{
+    
+	document.getElementById('header1').style.display="none";
+	window.print();
+	document.getElementById('header1').style.display="block";
+    return true;
+}
+
+
+function startload(){
+
+var otk = document.getElementsByName('tk');
+for(var x=0; x < otk.length; x++)   // comparison should be "<" not "<="
+{
+    otk[x].value = qs['tk'];
+}
+
+	
+	filterdata();
+	startattachment();
+	
+	
+}
+
+
+function checkmodule(){	
+		
+		maccess = getmoduleaccess('Raise Issue');
+		
+		if (maccess['name']){ 
+			tmodule = true;
+			
+			if (maccess['ladd']<1) {
+				
+				$(".addbutton").hide();
+			}
+			
+			if (maccess['ldelete'] < 1){
+				$(".deletebutton").hide();
+			}
+			
+		}
+		
+		
+};
+setTimeout(checkmodule, 1000);
+function decodeHtml(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+}
+ClassicEditor
+			.create( document.querySelector( '#editor' ), {
+				
+				toolbar: {
+					items: [
+						'heading',
+						'|',
+						'bold',
+						'italic',
+						'link',
+						'bulletedList',
+						'numberedList',
+						'|',
+						'outdent',
+						'indent',
+						'|',
+						'imageUpload',
+						'blockQuote',
+						'insertTable',
+						'mediaEmbed',
+						'undo',
+						'redo',
+						'CKFinder',
+						'alignment',
+						'fontBackgroundColor',
+						'fontColor',
+						'fontSize',
+						'fontFamily',
+						'highlight',
+						'horizontalLine',
+						'pageBreak',
+						'removeFormat',
+						'specialCharacters',
+						'strikethrough',
+						'subscript',
+						'superscript',
+						'underline',
+						'lineHeight'
+						,'sourceEditing'
+						,'maximize'
+					]
+				},
+				language: 'en',
+				image: {
+					toolbar: [
+						'imageTextAlternative',
+						'imageStyle:full',
+						'imageStyle:side'
+					]
+				},
+				table: {
+					contentToolbar: [
+						'tableColumn',
+						'tableRow',
+						'mergeTableCells',
+						'tableCellProperties',
+						'tableProperties'
+						
+					]
+				},
+				licenseKey: '',
+				ckfinder: {openerMethod: 'popup'}
+				
+			} )
+			.then( editor => {
+				window.editor = editor;
+				editor.isReadOnly = true;
+				
+			} )
+			.catch( error => {
+				console.error( error );
+			} );
+			
+
+</script>
+<script src="js/attachment.js"></script>

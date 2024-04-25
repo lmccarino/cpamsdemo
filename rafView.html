@@ -1,0 +1,377 @@
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="images/icons/72.png">
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+</head>
+<body>
+	<div id="header1"></div>
+	<div class="container">
+		
+		<div id="content">
+				
+			<div class="pt-3 mt-1"><h4 class="px-3">Edit - Request Assistance Form</h4></div>
+			<div id="list" style="display:none"></div>
+
+			<div id="details" >
+				<form name="searchform" id="searchform" style="width:100%">
+					<input type="hidden" name="trans" value="search">
+					<input type="hidden" name="tk">
+					<small class="badge badge-pill mt-4 mx-3 py-1">Filter Data</small>
+					<div class="row g-1 py-2 border-top border-bottom">
+						<div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="raf" id="rafSearch" maxlength="8" placeholder="RAF Number" />
+                                <label for="rafSearch"> RAF Number</label>
+                            </div>
+                        </div>
+						<div class="col-md-2 filterbutton">
+							<button name="searchbut" type="button" onclick="searchthis(this.form)" class="btn mt-2" id="searchbut">Search</button>
+						</div>	
+					</div>
+				</form>	
+				
+				<div id="raf">
+					<form id="rafForm" name="rafForm" enctype="multipart/form-data"  action="RafController.php" method="post"  >
+						<input type="hidden" name="rateCode">
+						<input type="hidden" name="tk">
+						<input type="hidden" name="trans">
+						<input type="hidden" name="idpatient" id="idpatient">
+						<input type="hidden" name="idassistdetails" id="idassistdetails">
+						<input type="hidden" name="idintake">
+						<input type="hidden" name="tag">
+						<input type="hidden" name="assistCode">
+						<input type="hidden" name="effectivitydate">
+						<input type="hidden" name="amtApprovedOrig">
+
+						<fieldset id="myfields" name="myfields">
+							<small class="badge badge-pill mt-4 mx-3 py-1">Patient's Detail</small>
+							<div class="py-2 border-top border-bottom">
+								<div class="row g-1 py-1">
+									<div class="col-md-4">
+										<div class="form-floating">
+											<input type="text" maxlength="8" class="form-control" name="rafNum" placeholder="RAF Number" readonly/>
+											<label>RAF # </label>
+										</div>
+									</div>
+									<div class="col-md-4">				
+										<div class="form-floating">
+											<input type="date" class="form-control" name="dateReceive" readonly/>
+											<label> Date Requested </label>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row g-1 py-1">
+									<div class="col-md">
+										<div class="form-floating">
+											<input type="text"  class="form-control" name="benLName" placeholder="Last Name" required/>
+											<label>Last Name <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>
+									<div class="col-md">
+										<div class="form-floating">
+											<input type="text" class="form-control" name="benFName" placeholder="First Name" required/>
+											<label>First Name <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>
+									<div class="col-md">        
+										<div class="form-floating">
+											<input type="text" class="form-control" name="benMName" placeholder="Middle Name" required/>
+											<label>Middle Name <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>
+									<div class="col-md">        
+										<div class="form-floating">
+											<input type="text" class="form-control" name="suffix" placeholder="Suffix" />
+											<label>Suffix </label>
+										</div>
+									</div>
+								</div>
+								<div class="row g-1 py-1">
+									<div class="col-md-9">
+										<div class="form-floating">
+											<input type="text"  class="form-control" name="benAddrSt" placeholder="Address" required/>
+											<label>Address (Number/Street/Subdivision/Village)</label>
+										</div>
+									</div>
+									<div class="col-md-3">        
+										<div class="form-floating">
+											<select name="brgyCode" class="form-control" required></select>
+											<label> Barangay <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>			
+								</div>
+								<div class="row g-1 py-1">
+									<div class="col-md">
+										<div class="form-floating">
+											<select name="benSex" class="form-control" required>
+												<option value="MALE">Male</option>
+												<option value="FEMALE">Female</option>
+											</select>
+											<label for="Gender">Choose a Gender <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>
+									<div class="col-md">
+										<div class="form-floating">
+											<input type="text" name="benPHealth" class="form-control" placeholder="Phil Health No" />
+											<label>Phil Health No</label>
+										</div>
+									</div>
+									<div class="col-md">
+										<div class="form-floating">
+											<input type="Date" class="form-control" name="benBDate" placeholder="Date of Birth" required/>
+											<label>Date of Birth <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>
+									<div class="col-md">
+										<div class="form-floating">
+											<input type="text" class="form-control" name="philsysid" placeholder="PhilSys ID"/>
+											<label>PhilSys ID</label>
+										</div>
+									</div>
+									<div class="col-md">
+										<div class="form-floating">
+											<input type="text" class="form-control" name="benContact" placeholder="Contact No" />
+											<label>Contact No</label>
+										</div>
+									</div>				
+								</div>
+							</div>
+								
+							<!-- <br/> -->
+							<small class="badge badge-pill mt-4 mx-3 py-1">Patient's Dependent(s)</small>
+							<div class="p-2 border-top border-bottom">
+								<div class="row g-1 py-1 filterbutton justify-content-end">			
+									<!-- <a href="#" onclick="addDependent()" data-toggle="tooltip" title="Add Dependent" class="col-sm-2"> <i class="fa fa-plus-square"></i> Add Dependent</a> -->
+									<button type="button" class="btn addDep" onclick="addDependent()" data-toggle="tooltip" title="Add Dependent"> <i class="fa fa-plus-square"></i> Add Dependent</button>
+								</div>
+								<div id="divDependents">
+									<div class="row g-1 py-1" id="divDependent" name="divDependent" style="display:none" >
+										<div class="col-md">
+											<div class="form-floating">
+												<input type="text" class="form-control" name="depName[]" placeholder="Name of Dependent" />
+												<label>Name of Dependent</label>
+											</div>
+										</div>
+										<div class="col-md">
+											<div class="form-floating">
+												<input type="text" class="form-control" name="depRelation[]" placeholder="Relationship" />
+												<label>Relationship</label>
+											</div>
+										</div>
+										<div class="col-md">
+											<div class="form-floating">
+												<input type="number" class="form-control" name="depAge[]" placeholder="Age" />
+												<label>Age</label>
+											</div>
+										</div>
+										<div class="col-md-1">
+											<button type="button" class="btn btn-danger" onclick="removeDependent(this)" data-toggle="tooltip" title="Remove Dependent"> <span class="fa fa-trash"></span></button>
+										</div>
+									</div>
+								</div>
+								<div class="row g-1 py-1">
+									<div class="col">        
+										<div class="form-floating">
+											<select name="sworker" class="form-control" required></select>
+											<label>Social Worker <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>
+								</div>		
+							</div>
+						
+							<!-- <br/> -->
+							<small class="badge badge-pill mt-4 mx-3 py-1">Requestor Details</small>
+							<div class="py-2 border-top border-bottom">
+								<div class="row g-1 py-1">
+									<div class="col-12">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="copypatient" onclick="copypatientfunc()">
+											<label class="float-start text-secondary font-italic" for="copypatient"><i>copy patient information</i></label>
+										</div>							
+									</div>
+									<div class="col-12">
+										<div class="form-floating">
+											<input type="text" name="requestor" class="form-control" placeholder="FullName(Lastname, Firstname, Middle name Suffix)" required/>
+											<label>FullName(Lastname, Firstname, Middle name Suffix) <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>			
+								</div>		
+								<div class="row g-1 py-1">
+									<div class="col-12">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="copyaddress" onclick="copyaddressfunc()">
+											<label class="float-start text-secondary font-italic" for="copyaddress"><i>copy patient address</i></label>
+										</div>							
+									</div>
+									<div class="col-12">
+										<div class="form-floating">
+											<input type="text" name="reqAddr" class="form-control" placeholder="Address(Number/Street/Subdivision/Village/Barangay)"  required/>
+											<label>Address(Number/Street/Subdivision/Village/Barangay) <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>
+								</div>	
+								<div class="row g-1 py-1">
+									<div class="col-12">
+										<div class="form-floating">
+											<input type ="text" class="form-control" name="relation" placeholder="Relationship to Patient/Beneficiary" required/>
+											<label>Relationship to Patient/Beneficiary <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>			
+								</div>	
+							</div>
+							
+							<!-- <br/> -->
+							<small class="badge badge-pill mt-4 mx-3 py-1 meds">Medicine</small>
+							<div class="p-2 border-top border-bottom meds">
+								<div class="row g-1 py-1 filterbutton justify-content-end">
+									<button type="button" class="btn addDep" onclick="addMedicine()" data-toggle="tooltip" title="Add Medicine"> <i class="fa fa-plus-square"></i> Add Medicine</button>
+								</div>
+								<div id="divMedicines">
+									<div class="row g-1 py-1" id="divMedicine" name="divMedicine" style="display:none" >
+										<input type="hidden" class="form-control" id="medProvOld" name="medProvOld[]" />
+										<div class="col-md">
+											<div class="form-floating">
+												<select name="medProv[]" id="medProv" class="form-control" data-toggle="tooltip" required>			
+												</select>
+												<label> Provider of Provider<small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+											</div>
+										</div>
+										<div class="col-md">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="medAmount" name="medAmount[]" onchange="computeMed()" placeholder="Amount" />
+												<label> Amount<small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+											</div>
+										</div>
+										<div class="col-md-1">
+											<button type="button" class="btn btn-danger" onclick="removeMedicine(this)" data-toggle="tooltip" title="Remove Medicine"> <span class="fa fa-trash"></span></button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- <br/> -->
+							<small class="badge badge-pill mt-4 mx-3 py-1">Assistance Details</small>
+							<div class="p-2 border-top border-bottom rounded" style="background-color: #def2f1;">
+								<div class="row g-1 py-1" class="providerDiv">
+									<div class="col-sm-4">
+										<div class="form-floating">
+											<select name="provCode" id="provCode" class="form-control" onchange="getassistcode(this)" data-toggle="tooltip" required>			
+											</select>
+											<label> Provider <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-floating">
+											<select name="idassistsched" id="idassistsched" class="form-control"  onchange="setrateCode(this)" onfocusout="computerate2()" data-toggle="tooltip" required>
+												
+											</select>
+											<label>Assistance <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>				
+									<div class="col-sm-2">
+										<div class="form-floating">
+											<input type="number" name="billAmount" onfocusout="computerate2()" class="form-control" placeholder="Bill Amount" required/>
+											<label>Bill Amount <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>
+									<div class="col-sm-2">
+										<div class="form-floating">
+											<input type="number" name="amtApproved" class="form-control" placeholder="Amount Granted">
+											<label>Amount Granted</label>
+										</div>
+									</div>
+								</div>
+								<div class="row g-1 py-1">
+									<div class="col-sm-12">
+										<div class="form-floating">
+											<input type="text" name="noteTag" class="form-control" placeholder="CMO Note" />
+											<label> CMO Note </label>
+										</div>
+									</div>
+								</div>			
+								<div class="row g-1 py-1">
+									<div class="col">
+										<div class="form-floating">
+											<textarea type="text" name="remarks" class="form-control" onfocusout="computerate2()" placeholder="Interview Remarks" style="height:125px;"></textarea>
+											<label>Interview Remarks <small><i class="fas fa-exclamation-circle text-danger"></i></small></label>
+										</div>
+									</div>
+								</div>
+								<div class="row g-1 py-1">
+									<div class="col-sm-12">
+										<div class="form-floating">
+											<input type="text" name="remTag" class="form-control" placeholder="Remarks" />
+											<label>Remarks </label>
+										</div>
+									</div>
+								</div>	
+							</div>
+						</fieldset>
+						<br/>
+						<div class="row">
+							<div class="modal-footer">
+								<div id="controlbuttons" style="display:none">
+									<button type="button" onclick="savethis(this.form)" class="btn btn-primary"  name="savebutton" data-toggle="tooltip" title="Save"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+								</div>
+							</div>	
+						</div>
+					</form>
+
+					<div class="row" id="reportbuttons" style="display:none">
+						<div class="col-12 text-center">
+						<!-- <button type="button" onclick="inform()" class="btn btn-primary"  name="smsbutton" data-toggle="tooltip" title="Inform SMS"><i class="fas fa-sim-card"></i>Send SMS</button> -->
+						<button type="button" onclick="gletter()" class="btn btn-primary"  name="glbutton" data-toggle="tooltip" title="Guarantee Letter"><i class="fa-regular fa-file-pdf"></i>Guarantee Letter</button>
+						<button type="button" onclick="celigibility()" class="btn btn-secondary"  name="eligibilitybutton" data-toggle="tooltip" title="Certificate of Eligibility"><i class="fa-regular fa-file-pdf"></i>Certificate of Eligibiltiy</button>
+						<button type="button" onclick="cindigency()" class="btn btn-warning"  name="indigencybutton" data-toggle="tooltip" title="Certificate of Indigency"><i class="fa-regular fa-file-pdf"></i>Certificate of Indigency</button>
+						<button type="button" onclick="intakeform()" class="btn btn-success"  name="intakebutton" data-toggle="tooltip" title="Intake Form"><i class="fa-regular fa-file-pdf"></i>Intake Form</button>
+						</div>
+					</div>
+					
+					<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+						<div id="timerz" class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true">
+						  <div class="toast-body fw-bold text-center" id="timeLapse"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="header"></div>
+	<!-- GL Modal Print -->
+    <div class="modal fade" id="print-gl-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header py-1">
+                    <h5 class="modal-title" id="staticBackdropLabel">Print</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0" style="min-height: 70vh;">
+                     <iframe src="" frameborder="0" width="100%" height="100%" style="min-height: 70vh;" 
+                        id="print-gl-container" hidden></iframe>                      
+                     <!-- <embed src="" type="application/pdf" width="100%" height="600px" id="pdf-container" hidden />   -->
+                </div>
+                <div class="modal-footer py-1">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/rafView.js"></script>

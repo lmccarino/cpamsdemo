@@ -1,0 +1,92 @@
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="images/icons/72.png">
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+</head>
+<body>
+<div id="header1"></div>
+<div class="container">
+	
+	<div id="content" hidden>
+		<div class="pt-3 mt-1"><h4 class="px-3">Adjust Account</h4></div>
+		<div id="list">
+			
+			<div class="row g-1 py-2">				
+				<div class="offset-md-10 col-md-2 filterbutton">
+					<button type="button" name="addbutton" onclick="additem()" class="btn mt-2 addbutton" data-toggle="tooltip" title="Replenish"><i class="fa fa-plus"></i>Adjusment</button>
+				</div>
+			</div>
+			
+			<small class="badge badge-pill mx-3 py-1">Adjustment Transaction Details</small>
+			<div class="row g-1 py-2 border-top border-bottom tablecontainer">
+				<table id="ds" class="table caption-top">
+					<caption></caption>
+					<thead><tr><th>TransactionDate</th><th>Amount</th><th>Balance</th><th>Details</th><th>ConductedBy</th></tr></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<!-- <div class="col-12 text-end"><button type="button" name="addbutton" onclick="additem()"  class="btn btn-primary addbutton" data-toggle="tooltip" title="Replenish"><span class="fa fa-folder-plus"></span></button></div> -->
+		</div>
+
+		<div class="row">
+			<div id="details" style="display:none"></div>
+		</div>
+
+		<div id="header"></div>
+		<div id="amountModal" class="modal" role="dialog">
+		  <div class="modal-dialog" role="document">
+
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+				
+						<h5 class="modal-title">Amount Details</h5>
+		       	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        
+		      </div>
+		      <div class="modal-body">
+						<form name="entryform" id="entryform">
+							<input type="hidden" name="trans" value="debit">
+							<input type="hidden" name="tk">
+							<div class="row">
+								<div class="form-floating mx-1 p-1">								
+									<input type="number" class="form-control" name="debit" id="debit" min="0" step="1" >
+									<label>Amount</label>
+								</div>
+								<div class="form-floating mx-1 p-1">								
+									<input type="text" class="form-control" name="details" value="Adjustment of Allotment" >
+									<label>Details</label>
+								</div>
+							</div>
+							<div class="offset-md-9 col-md-3 border-top">
+								<button name="butsave" type="button" onclick="savethis(this.form)" class="btn btn-primary" id="savebut">Save</button>							
+							</div>						
+						</form>		
+			  	</div>
+		      <div class="modal-footer">        
+						<button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</div>
+</body>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/adjustView.js"></script>

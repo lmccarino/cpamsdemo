@@ -1,0 +1,70 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="images/icons/72.png">
+    <title>CPAMS</title>
+    <link rel="stylesheet" href="css/main2.css">    
+</head>
+<body>
+    <div id="header1"></div>
+    <div class="container">
+        <div id="content">
+                <div class="pt-3 mt-1"><h4 class="px-3">Patient's Guarantee Letter</h4></div>
+                <div id="details" style="display:none;"></div>
+
+                <form id="searchForm" style="width:100%">
+                    <small class="badge badge-pill mt-4 mx-3 py-1">Filter Data</small>
+                    <div class="row g-1 py-2 border-top border-bottom">
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input type = text  class="form-control" id="rafSearch" maxlength="10" placeholder="RAF Number" />
+                                <label for="rafSearch"> RAF Number</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 filterbutton">
+                            <button class="btn mt-2" type="button" onclick="searchRaf()">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <small class="badge badge-pill mx-3 py-1">List of Patients</small>
+                <div class="crow g-1 py-2 border-top border-bottom tablecontainer">    
+                    <table id="ds" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>RAF No.</th>
+                                <th>Patient Name</th>
+                                <th>Assistance</th>
+                                <th>Bill</th>
+                                <th>Approved</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+						<tfoot><tr> <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <th style="text-align:right"></th>
+                                    <th></th>
+                                </tr></tfoot>
+                    </table>
+                </div>
+        </div>
+    </div>
+    <div id="header"></div>
+</body>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/providerGLview.js"></script>

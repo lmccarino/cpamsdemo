@@ -1,0 +1,4 @@
+<p>Date: $date</p>
+<p>Employee Number: $empno</p><p>Name: &nbsp;$fullname</p><p>Designation : &nbsp;$designation</p><p>Effectivity: &nbsp;$effectivity</p>
+<p>Area of Assignment: &nbsp;$office</p><p>Address: &nbsp;$address</p>
+<p>Details: &nbsp;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please report to&nbsp;</p><p style="margin-left:40px;"><br data-cke-filler="true"></p>

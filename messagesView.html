@@ -1,0 +1,280 @@
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+	<link rel="manifest" href="manifest.json">
+	<link rel="icon" href="images/icons/72.png">
+	<title>CPAMS</title>
+	<link rel="stylesheet" href="css/main2.css">
+
+</head>
+
+<body>
+	<div id="header1"></div>
+	<div class="container">
+		<div id="content">
+			<div class="pt-3 mt-1">
+				<h4 class="px-3">Messages</h4>
+			</div>
+			<div id="details" style="display:none"></div>
+			<div id="list">				
+				<small class="badge badge-pill mx-3 py-1">Received Messages</small>
+				<div class="row g-1 py-2 border-top border-bottom tablecontainer">
+					<br />
+					<table class="table table-hover" id="ds">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Date</th>
+								<th>Status</th>
+								<th>Message</th>
+								<th>Sender</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="header"></div>
+		<div id="myDetails" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header py-2">
+						<h5 class="modal-title"><span id="titledetails">Notification</span></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-7">
+								<label class="font-monospace">Sender</label>
+								<h6 id="value-sender"></h6>
+							</div>
+							<div class="col-5">
+								<label class="font-monospace">Date</label>
+								<h6 id="value-date"></h6>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col">
+								<label class="font-monospace">Message</label><br/>
+								<b id="value-title"></b>
+								<p id="value-message"></p>	
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer py-2">
+						<button type="button" class="btn" onclick="closemyDetails()">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/src/main.js"></script>
+<script>
+	let xtitle = 'Received Messages';
+
+	function filterdata() {
+		document.getElementById('details').style.display = "none";
+		document.getElementById('list').style.display = "block";
+		var tk = qs['tk'];
+		var today = new Date();
+		var asDate = new Date();
+		var options = { year: 'numeric', month: 'long', day: 'numeric' };
+		var stoday = today.toLocaleDateString("en-US", options);
+		var caption = "As of " + asDate.toLocaleDateString("en-US", options);
+		let xtitle = "Received Messages";
+		var table = $('#ds').DataTable({
+			"destroy": true,
+			dom: 'lfrtBip',
+			buttons: [
+				'copy', {
+					extend: 'excelHtml5', title: xtitle
+					, messageTop: caption, messageBottom: '\n Prepared by: ' + fullname + ' ' + stoday, footer: true
+				},
+				{
+					extend: 'pdf',
+					title: xtitle
+					, messageTop: caption, messageBottom: '\n Prepared by: ' + fullname + ' ' + stoday, footer: true
+				},
+				{
+					extend: 'print',
+					title: xtitle,
+					messageTop: caption, messageBottom: '\n Prepared by: ' + fullname + ' ' + stoday, footer: true
+
+				}
+			],
+			"ajax": {
+				"url": "controllers/messagesController.php?trans=getdetails&tk=" + tk,
+				"dataSrc": function (json) {
+					//Make your callback here.
+					if (json.data.length > 0) {
+						const urlSearch = new URL(window.location.href);
+						const message = urlSearch.searchParams.get('message');
+
+						for (let i = 0; i < json.data.length; i++) {
+							json.data[i]['status'] = (json.data[i]['readz'] == '0000-00-00 00:00:00') ? `<span class="badge bg-warning">New</span>` : '<span class="badge bg-secondary">Read</span>';
+							json.data[i]['message'] = (json.data[i]['readz'] == '0000-00-00 00:00:00') ? `<b>${json.data[i]['title']}</b><br/>${json.data[i]['msg']}` : `<span class="text-secondary">${json.data[i]['title']}<br/>${json.data[i]['msg']}</span>`;
+
+							if (json.data[i]['notification_id'] == message) {
+								showdetails(json.data[i]);
+								continue;
+							}
+						}
+					}
+
+					return json.data;
+				}
+			},
+			"columns": [
+
+				{ "className": 'details', "data": "notification_id" },
+				{ "className": 'details', "data": "created_at" },
+				{ "className": 'details', "data": "status" },
+				{ "className": 'details', "data": "message" },
+				{ "className": 'details', "data": null, "defaultContent": 'System' }
+			],
+			"order": [[0, 'desc']]
+		});
+
+		$('#ds tbody').off();
+		$('#ds tbody').on('click', 'td.details', function () {
+			var tr = $(this).closest('tr');
+			var row = table.row(tr);
+
+			showdetails(row.data());
+		});
+	}
+
+	function showdetails(d) {
+		if(d['readz'] != '0000-00-00 00:00:00'){
+			document.getElementById('value-sender').innerHTML = 'System';
+			document.getElementById('value-date').innerHTML = d['created_at'];
+			document.getElementById('value-title').innerHTML = d['title'];
+			document.getElementById('value-message').innerHTML = d['msg'];
+			$("#myDetails").modal("show");
+		}
+		else
+		{
+			$.ajax({
+				url: 'controllers/notificationController.php',
+				cache: false,
+				dataType: 'json',
+				type: 'POST',
+				data: { 
+					trans: "read_notification", 
+					id: d['notification_id']
+				},
+				success: function(result) {	
+					// console.log(result[0]['updated']);
+					if(result['updated'] > 0){
+						$('#ds').DataTable().ajax.reload(null,false);
+						shownotifications();
+					}
+
+					document.getElementById('value-sender').innerHTML = 'System';
+					document.getElementById('value-date').innerHTML = d['created_at'];
+					document.getElementById('value-title').innerHTML = d['title'];
+					document.getElementById('value-message').innerHTML = d['msg'];
+					$("#myDetails").modal("show");	
+				},
+				error: function(err){
+					alert('Error in opening notification.');
+					console.log(err);
+				}
+			});
+		}
+	}
+
+	function closemyDetails() {
+		$("#myDetails").modal("hide");
+	}
+
+	function getdetails(data) {
+		document.getElementById('list').style.display = "none";
+		document.getElementById('details').style.display = "block";
+		editor.setData(decodeHtml(data['content']));
+		document.getElementById('subject').value = data['subject'];
+		document.getElementById('datefiled').value = data['datefiled'];
+		document.getElementById('filedby').value = data['filedby'];
+		let xform = document.getElementById('entryform2').elements;
+		xtrans = xform.namedItem('trans');
+		xtrans.value = "ADD";
+
+		xform.namedItem('idissues').value = data['idissues'];
+		var xdate = new Date();
+
+		xform.namedItem('transdate').value = xdate;
+		xform.namedItem('userid').value = fullname;
+		document.getElementById('keyvalue').value = data['idissues'];
+		document.getElementById('keyname').value = 'idissues';
+		$('.savebutton').show();
+		//editor.disableReadOnlyMode( 'feature-id' );
+		initload();
+		getattachments(data['idissues']);
+		$('.submitbutton').hide();
+	}
+
+	function closethis() {
+		document.getElementById('details').style.display = "none";
+		document.getElementById('list').style.display = "block";
+	}
+
+	function decodeHtml(html) {
+		var txt = document.createElement("textarea");
+		txt.innerHTML = html;
+		return txt.value;
+	}
+
+	function PrintElem() {
+		document.getElementById('header1').style.display = "none";
+		window.print();
+		document.getElementById('header1').style.display = "block";
+		return true;
+	}
+
+	function startload() {
+		var otk = document.getElementsByName('tk');
+		for (var x = 0; x < otk.length; x++)   // comparison should be "<" not "<="
+		{
+			otk[x].value = qs['tk'];
+		}
+		filterdata();
+		startattachment();
+	}
+
+
+	function checkmodule() {
+		maccess = getmoduleaccess('Raise Issue');
+
+		if (maccess['name']) {
+			tmodule = true;
+
+			if (maccess['ladd'] < 1) {
+				$(".addbutton").hide();
+			}
+
+			if (maccess['ldelete'] < 1) {
+				$(".deletebutton").hide();
+			}
+		}
+	};
+
+	function decodeHtml(html) {
+		var txt = document.createElement("textarea");
+		txt.innerHTML = html;
+		return txt.value;
+	}
+</script>
+<script src="js/src/attachment.js"></script>

@@ -1,0 +1,116 @@
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+<link rel="icon" href="images/icons/72.png">
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+</head>
+<body>
+<div id="header1"></div>
+<div class="container">
+	
+	<div id="content">
+			<div class="pt-3 mt-1"><h4 class="px-3">Roles</h4></div>
+			<div id="list">
+
+				<div class="row g-1 py-2">				
+					<div class="offset-md-10 col-md-2 filterbutton">
+						<button type="button" onclick="additem()" class="btn mt-2 addbutton" data-toggle="tooltip" title="Add Office"><i class="fa fa-plus"></i> Add New Role</button>
+					</div>
+				</div>
+				<small class="badge badge-pill mx-3 py-1">List of Roles</small>
+				<div class="row g-1 py-2 border-top border-bottom tablecontainer">
+					<table class="table" id="ds" style="width:100%">
+						<thead><tr><th></th><th>Roles</th><th>Active</th><th></th><th></th></tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+				<!-- 
+					<div class="col-12">
+							<br>
+							<div class="col-12 text-end"><button type="button" onclick="additem()" class="btn btn-primary addbutton" data-toggle="tooltip" title="Add New Record"><span class="fa fa-folder-plus"></span></button></div>	
+							
+							<br>
+					</div> -->
+			</div>	
+		</div>			
+		
+	<div id="details"></div>	 	   
+</div>
+<div id="header"></div>
+
+<div id="officeModal" class="modal" role="dialog">
+  <div class="modal-dialog" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+				<h4 class="modal-title">Role Details</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+	    <div class="modal-body">
+				<form name="entryform" id="entryform" class="g-1 py-2 border-top border-bottom">
+					<fieldset name="myfields" disabled>
+						<input type="hidden" name="idroles"/>
+						<input type="hidden" name="trans"/>
+						<input type="hidden" name="tk"/>
+						
+						<div class="form-floating mx-1 p-1">
+							<input type="text" class="form-control" name="name" placeholder="Enter Name" />
+							<label for="email">Role</label>
+						</div>
+						<div class="form-floating mx-1 p-1">
+							<select class="form-control" name="active">
+								<option value='Y'>Yes</option>
+								<option value='N'>No</option>
+							</select>
+							<label>Active</label>
+						</div>	
+					</fieldset>
+					<div class="offset-md-9 col-md-3 border-top">
+						<button name="butsave" type="button" onclick="savethis(this.form)" class="btn btn-primary" id="savebut">Save</button>
+						<button name="butupdate" type="button" onclick="updatethis(this.form)" class="btn btn-success updatebutton" id="updatebut">Update</button>
+						<button name="butcancel" type="button" onclick="cancelthis(this.form)" class="btn btn-warning" id="cancelbut">Cancel</button>	
+					</div>						
+				</form>	
+			</div>
+  	</div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" title="Close">close</button>
+    </div>
+  </div>
+
+</div>
+</div>
+<div id="prevModal" class="modal" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+		    <h5 class="modal-title"><span id="modaltitle"></span></h5>
+	      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>        
+      </div>
+      <div class="modal-body">
+				<div class="row"><div id="modaldetails" class="col-12"></div></div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+	      </div>
+    	</div>
+  	</div>
+	</div>
+</div>
+</body>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/rolesView.js"></script>

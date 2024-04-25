@@ -1,0 +1,266 @@
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="images/icons/72.png">
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+</head>
+<body>
+<div id="header1"></div>
+<div class="container">	
+	<div id="content">	
+		<div class="pt-3 mt-1"><h4 class="px-3">User Profile</h4></div>	
+		<div id="details">
+			<form name="entryform" id="entryform" enctype="multipart/form-data">
+				
+				<input type="hidden" name="userid" id="userid">
+				<input type="hidden" name="trans" id="trans">
+				<input type="hidden" name="image1" id="image1">
+				<input type="hidden" name="sig1" id="sig1">
+				<input type="hidden" name="tk">
+				<input type="hidden" name="tkform">
+				<div class="row">
+					<div class="col-4 g-1 profilecredscontainer">
+						<div class="form-floating mx-1 p-1">
+							<input type="email" class="form-control" id="emailaddress" name="emailaddress" placeholder="Email" />
+							<label for="email">Email</label>
+						</div>
+						<div class="form-floating mx-1 p-1">
+							<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+							<label for="password">Password</label>
+						</div>
+						<div class="form-floating mx-1 p-1">
+							<input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password" />
+							<label for="password2">Confirm Password</label>
+						</div>
+					</div>
+					<div class="col-4 g-1 profileimgcontainer">							
+						<small class="badge badge-pill mt-4 mx-3 py-1">Profile Image</small>
+						<img src="userimages/person.jpg" class="img-responsive" id="imgupload" name="imgupload">
+						<div class="mx-1 p-1 input-group custom-file-button">
+							<label class="input-group-text" for="imagefile"><i class="fa-solid fa-arrow-up-from-bracket"></i></label>
+							<!-- <label class="input-group-text" for="imagefile">Profile Image</label> -->
+							<input type="file" class="file form-control" name="imagefile" id="imagefile" accept="image/jpeg, image/png" onchange="readURL(this,'#imgupload');">
+						</div>
+					</div>
+					<div class="col-4 g-1 profileimgcontainer">
+						<small class="badge badge-pill mt-4 mx-3 py-1">Signature</small>
+						<img src="signatures/signature.png" class="img-responsive" id="sigupload" name="sigupload">
+						<div class="mx-1 p-1 input-group custom-file-button">
+							<label class="input-group-text" for="imagefile"><i class="fa-solid fa-arrow-up-from-bracket"></i></label>
+							<input type="file" class="file form-control" name="sigfile" id="sigfile" accept="image/png" onchange="readURL(this,'#sigupload');">
+						</div>							
+						<small class="p-1" style="background-color:#3aafa9; color:#17252a; font-weight: bold; font-size:0.8em;">Height:150px Width:300px png format</small>
+					</div>
+
+					<div class="row">
+						<div class="col-md-9 g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="text" class="form-control" id="fullname" name="fullname" required="true"  placeholder="Last Name, First Name Middle Name">
+								<label for="fullname">Full Name</label>
+							</div>
+						</div>
+						<div class="col-md-3 g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="text" class="form-control" id="cellno" name="cellno" required="true"  placeholder="09*********">
+								<label for="cellno">Mobile Number</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col g-1">
+							<div class="form-floating mx-1 p-1">
+								<select class="form-control" id="office" name="office"></select>
+								<label for="sel1">Office</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="text" class="form-control" id="remarks" name="remarks" placeholder="Remarks">
+								<label for="remarks">Remarks</label>
+							</div>
+						</div>						
+					</div>
+					<div class="row">
+						<div class="col g-1">
+							<div class="form-floating mx-1 p-1">
+								<select class="form-control" name="active" id="active">
+									<option value='Y'>Yes</option>
+									<option value='N'>No</option>
+								</select>
+								<label>Active</label>
+							</div>
+						</div>
+						<div class="col g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="text" class="form-control" id="login" name="login" disabled>
+								<label for="login">Log-In Date</label>
+							</div>
+						</div>
+						<div class="col g-1">
+							<div class="form-floating mx-1 p-1">
+								<input type="text" class="form-control" id="ip" name="ip" disabled>
+								<label for="login">IP Address</label>
+							</div>
+						</div>
+					</div>
+
+				<div class="row">
+					<div class="offset-md-6 col-md-6 border-top">
+						<button name="butcancel" type="button" onclick="cancelthis(this.form)" class="btn btn-secondary float-end" id="cancelbut">Cancel</button>
+						<button name="butsave" type="button" onclick="savethis(this.form)" class="btn btn-primary float-end me-2" id="savebut">Save</button>
+						<button name="butdevice" type="button" onclick="subscribethis(this.form)" class="btn btn-info float-end me-2" id="subscribebut"><i class="fa-solid fa-bell"></i> Subscribe Notification</button>	
+						<button name="butdevice" type="button" onclick="devicethis(this.form)" class="btn btn-warning float-end me-2" id="devicebut"><span class="glyphicon glyphicon-tags"></span> Register Device</button>
+					</div>
+				</div>
+			</form>	
+		</div>	   
+			
+		
+			
+				
+				
+			
+					
+		
+	</div>
+</div>
+
+<div id="header"></div>
+<div id="detailsModal" class="modal" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        <h5 class="modal-title"><span id="modaltitle"></span></h4>
+      </div>
+      <div class="modal-body">
+		<div class="row"><div id="modaldetails" class="col"></div></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+</body>
+<div id="devModal" class="modal" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+		<h5 class="modal-title"><span id="modaltitle">Registed Devices</span></h4>
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+		<div class="col">
+			<table class="table table-hover" id="ds" style="width:100%">
+					<thead><tr><th>Device Description</th><th>Details</th><th></th></tr></thead>
+					
+					<tbody></tbody>
+			</table>
+		</div>
+		<div class="col"><button type="button" class="btn btn-primary" onclick="adddev()"><span class="glyphicon glyphicon-plus"></span> New Device</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<div id="getdevModal" class="modal" role="dialog">
+  <div class="modal-dialog" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title"><span>Device Info</span></h4>
+			<button type="button" class="btn-close" data-bs-dismiss="modal">&times;</button>
+			
+		</div>
+		<div class="modal-body">
+			<div class="row"><div class="col">
+				<form>
+					<input type="hidden" name="latitude" id="latitude">
+					<input type="hidden" name="longitude" id="longitude">
+					<input type="hidden" name="trans" value ="getCreateArgs">
+					<input type="hidden" name="tk">
+					<input type="hidden" name="tkform">
+					<div class="form-group">
+								<label>Date of Registration</label>
+								<input type="date" class="form-control" id="datereg" name="datereg" readonly>
+					</div>
+					<div class="form-group">
+								<label>Device Description</label>
+								<input type="text" class="form-control" id="clientdesc" name="clientdesc" >
+					</div>
+					<div class="form-group">
+								<label>Device Details</label>
+								<input type="text" class="form-control" id="devdesc" name="devdesc" readonly>
+					</div>
+					<button type="button" onclick="savedev(this)" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
+				</form>
+			</div></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+  </div>
+</div>
+<div id="ddd" class="modal" role="dialog">
+	<div class="modal-dialog" role="document">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header"></div>
+			<div class="modal-body"></div>
+		</div>
+	</div>
+</div>
+
+<div id="myVerify" class="modal" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header"></div>
+      <div class="modal-body">
+				<div class="col">
+					<img class="img-fluid center-block" alt="saving" src="images/saving.gif">
+					<div class="col" style="text-align:center"><span>Verifying Please Wait</span></div>
+				</div>
+			</div>
+			<div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+</body>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/src/main.js"></script>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
+
+<script src="js/src/usersView1.js"></script>

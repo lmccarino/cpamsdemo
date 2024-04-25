@@ -1,0 +1,46 @@
+ 
+	  <div class="header1"> 
+		<div style="float:left;margin-top:0.25em;">
+			<span> 
+				<button class="btn btn-link" onclick="home()"><img src="assets/images/cpams_logosample2.png" style="width:20px; padding: 0px;"></button>
+			</span>
+			<span><a href="#" class="btn btn-light menuicon"  onclick="openNav()" title="Show Menu"><img src="images/menu.png" style="width:20px; padding: 0px;"></a></span>
+			
+		</div>
+		<span style="width: auto; margin-top:0.5em; float:left;"> <h5>CPAMS 2.0</h5></span>
+		<!-- <div style="width:30%;float:left">
+			<span style="float:left"><button class="btn btn-link" onclick="home()"><img src="images/logo.png" style="width:100%"></button></span>
+		</div> -->
+		<!-- <div style="width:30%;float:left"><h5>CPAMS v2</h5> -->
+		<!-- </div> -->
+		<div style="float:right; position: absolute; right:15px;">
+			<span>
+				<span id="loginusercontainer" class="dropdown">
+					Hello, <b id="usernamecontainer" class="dropdownbtn">sample</b><span id="profileimg"></span><!--<i class="fa-solid fa-caret-down"></i>-->
+					<span class="dropdown-content">
+						<a href="#" id="headerProfile">Profile</a>
+						<a href="#" class="logout" data-toggle="tooltip" data-placement="bottom" title="LogOut" onclick="SignOut()">Logout</a>
+					</span>			
+				</span>
+			  
+				<button type="button" class="btn btn-light btn-notification" title="Notification" onclick="ShowNotification()">
+					<i class="fa-solid fa-bell" style="position: relative;">
+						<div id="noti-indicator">
+						</div>
+					</i>					
+				</button>
+
+				<span id="notiContent" class="dropdown-content">
+					<a>No new notications</a>
+				</span>
+
+				<!-- <button type="button" style="margin:auto" class="btn btn-light login" data-toggle="tooltip" data-placement="bottom" title="LogIn" onclick="SignIn()" style="margin-top:1em;">Log-In</button> -->	
+				<!-- <button type="button" style="margin:auto" class="btn btn-light logout" data-toggle="tooltip" data-placement="bottom" title="LogOut" onclick="SignOut()" style="margin-top:1em;display:none;"><i class="fa-solid fa-key"></i></button> -->
+				<span id="time" style="margin:auto; color: #2b7a78;"></span>
+			</span>
+		</div>
+		<br>
+	</div>
+	<!-- <div style="width:100%;float:right"><br></div>
+	   <div class="row"><br><br><br><br></div> -->
+	   <div class="row" id="menuPanel"></div>

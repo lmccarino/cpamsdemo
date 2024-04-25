@@ -1,0 +1,88 @@
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="images/icons/72.png">
+<title>CPAMS</title>
+<link rel="stylesheet" href="css/main2.css">
+</head>
+<body>
+<div id="header1"></div>
+<div class="container">
+	
+	<div id="content">
+		<div class="pt-3 mt-1"><h4 class="px-3">Provider Assistance Schedule</h4></div>
+
+		<div class="list">
+			<small class="badge badge-pill mx-3 py-1">List of Providers</small>
+			<div class="row g-1 py-2 border-top border-bottom tablecontainer">	
+					<table id="ds" class="table table-xs">
+						<thead><tr><th></th><th>Code</th><th>Name</th><th>Type</th></tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+		</div>
+		<div id="details"></div>	
+	</div>
+</div>
+
+<div id="header"></div>
+<div id="officeModal" class="modal" role="dialog">
+  <div class="modal-dialog" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+				<h5 class="modal-title"><span>Assistance Details</span></h5>
+       	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+			<form name="entryform" id="entryform" style="width:100%">
+			<div class="modal-body">
+				
+					
+					<input type="hidden" name="officecode">
+					<input type="hidden" name="trans">
+					<input type="hidden" name="idprovassist">
+					<input type="hidden" name="idoffice">					
+					<input type="hidden" name="tk">
+
+					<div class="row g-1 py-1">
+						<div class="form-floating col">
+							<select class="form-control" name="assistCode" >
+								<option value='HOSPITAL'>HOSPITAL</option>
+								<option value='PROCEDURE'>PROCEDURE</option>
+								<option value='LABORATORY'>LABORATORY</option>
+								<option value='DIALYSIS'>DIALYSIS</option>
+								<option value='FUNERAL'>FUNERAL</option>
+								<option value='APPARATUS'>APPARATUS</option>
+								<option value='MEDICINE'>MEDICINE</option>
+							</select>
+							<label>Assistance</label>
+						</div>
+					</div>				
+									
+			</div>
+
+			<div class="modal-footer">   
+				<button name="savebutton" type="button" onclick="savethis(this.form)" class="btn btn-primary" id="savebut">Save</button>     
+				<button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+			</div>
+			</form>
+	  </div>
+  </div>
+
+</div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/provassistView.js"></script>

@@ -1,0 +1,173 @@
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/icons/72.png">
+	<link rel="manifest" href="manifest.json">
+	<link rel="icon" href="images/icons/72.png">
+	<title>CPAMS</title>
+	<link rel="stylesheet" href="css/main2.css">
+	<style>
+		label {
+            color: #000080;
+            font-weight: bold;
+            display: block;
+        }
+        label:after { content: ": " }
+	</style>
+</head>
+<body>
+<div id="header1"></div>
+<div class="container">
+	<div id="content">
+		<div class="pt-3 mt-1"><h4 class="px-3">Assistance Rate</h4></div>
+		<div class="list">
+			<div class="row g-1 py-2">				
+				<div class="offset-md-9 col-md-3 filterbutton">
+					<button type="button" name="addbutton" onclick="showNewRate('0','',1,1,1)"  class="btn mt-2 addbutton" data-toggle="tooltip" title="Add Assistance Rate"><i class="fa fa-folder-plus"></i> Add Assistance Rate</button>
+				</div>
+			</div>
+			<small class="badge badge-pill mx-3 py-1">List of Rates</small>
+			<div class="row g-1 py-2 border-top border-bottom tablecontainer">	
+				<table id="ds" class="table">
+				<thead><tr><th></th><th>Code</th><th>From</th><th>To</th><th>Amount</th><th>Active</th><th></th></tr></thead>
+				<tbody></tbody>
+				</table>
+			</div>
+		</div>
+				
+		<div id="details" style="display:none"></div>	   
+	</div>
+
+	<div id="myModal" class="modal" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span>Assistance Schedule</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+				<div class="modal-body">
+					<form name="entryform" id="entryform">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-floating">
+									<input type = hidden  id="child"/>
+									<input type = hidden  id="trans" name="trans"/>
+									<input type = hidden  id="id" name="id"/>
+									<input type = hidden  id="tk" name="tk"/>
+									<input type = hidden  id="rateCode" name="rateCode"/>
+								</div>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-floating">
+									<select class="form-select" aria-label="Default select example" id="assistCode" name="assistCode">
+										<option value="APPARATUS">APPARATUS</option>
+										<option value="DIALYSIS">DIALYSIS</option>
+										<option value="FUNERAL">FUNERAL</option>
+										<option value="HOSPITAL">HOSPITAL</option>
+										<option value="LABORATORY">LABORATORY</option>
+										<option value="MEDICINE">MEDICINE</option>
+										<option value="PROCEDURE">PROCEDURE</option>
+									 </select>
+									 <label> Assistance</label>
+								</div>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-floating">
+									<input type = text  id="assistDesc" name="assistDesc" class="form-control input-group-sm"/>
+									<label> Assistance Desciption</label>
+								</div>
+							</div>
+						</div>
+					</form>	
+				</div>
+				<br/>
+				<div class="modal-footer">
+					<button name="btnSave" type="button" onclick="saveThis(this.form)" class="btn btn-warning savebutton" id="btnSave"></button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+				</div>
+            </div>
+        </div>
+	</div>
+
+	<div id="ARmodal" class="modal" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span>Assistance Rate</span></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body">
+                    	<form name="rateForm" id="rateForm">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-floating">
+										<input type = number  id="from" name="from" class="form-control input-group-sm"  maxlength="9" value="1"/>
+										<label> Amount From</label>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-floating">
+										<input type = number  id="to" name="to" class="form-control input-group-sm"  maxlength="9" value="1"/>
+										<label> Amount To</label>
+									</div>
+								</div>
+							</div>
+							<br/>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-floating">
+										<input type = text  id="rate" name="rate" class="form-control input-group-sm" maxlength="5"/>
+										<label> Rate Code</label>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-floating">
+										<input type = number  id="amt" name="amt" class="form-control input-group-sm" maxlength="9"/>
+										<label> Rate Amount</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-floating">
+										<input type = hidden  id="recid" name="recid"/>
+										<input type = hidden  id="tk" name="tk"/>
+										<input type = hidden  id="Rtrans" name="Rtrans"/>
+									</div>
+								</div>
+							</div>
+						</form>	
+                    </div>
+					<br/>
+                    <div class="modal-footer">
+                        <button name="btnSave" type="button" onclick="saveRate(this.form)" class="btn btn-success savebutton" id="btnSave">Save</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="header"></div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/src/main.js"></script>
+<script src="js/src/assistrateView.js"></script>
