@@ -17,7 +17,7 @@ class Utility {
 
 			$blobName = hash('sha256', uniqid() . microtime(true) . rand()) . "." . $file_ext;
 
-			$accesskey = "+EBv3SmaNVGvIjbYbeCl+bmvRxv6wMtfOPmYM+lMDryqPb06eILJuMlry5dc/oFpoHLkX7GLd86z+AStQgp0TQ==";
+			$accesskey = "";
 			$storageAccount = 'lingapblob';
 
 			$destinationURL = "https://$storageAccount.blob.core.windows.net/$containerName/$blobName";
