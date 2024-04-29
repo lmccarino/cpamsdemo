@@ -39,7 +39,8 @@ function find($id) {
 
 function fetchCitizenProfile($id) {
     // The URL you want to send the GET request to
-    $url = "http://localhost:8080/dcis/application/api/admin/records?code=$id";
+    $url = "https://citizenscard.davaocity.gov.ph/application/api/admin/records?code=$id";
+    // $url = "https://localhost:8080/dcis/application/api/admin/records?code=$id";
 
     // Initialize a cURL session
     $curl = curl_init();
