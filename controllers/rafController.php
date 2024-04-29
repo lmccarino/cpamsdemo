@@ -74,7 +74,7 @@ function loadpatient(){
 	$idpatient = $_REQUEST['idpatient'];
 	$command = "SELECT 
 					p.*,
-    				EXISTS (SELECT 1 FROM assistdetail AS ad WHERE p.idpatient = ad.idpatient AND ad.assistCode LIKE '%FUNERAL%' AND ad.status == 'APPROVED') AS deceased
+    				EXISTS (SELECT 1 FROM assistdetail AS ad WHERE p.idpatient = ad.idpatient AND ad.assistCode LIKE '%FUNERAL%' AND ad.status = 'APPROVED') AS deceased
 				FROM patient AS p 
 				WHERE p.idpatient = $idpatient";
 	// $command = "select * from patient where idpatient = $idpatient";
@@ -150,6 +150,7 @@ function adddetails($userid, $fullname){
 	$benContact = htmlspecialchars(strtoupper($_REQUEST['benContact']),ENT_QUOTES,"UTF-8");
 	$assistCode = $_REQUEST['assistCode'];
 	$philsysid = htmlspecialchars(strtoupper($_REQUEST['philsysid']),ENT_QUOTES,"UTF-8");
+	$citizenid = strtoupper($_REQUEST['citizenid']);
 	$brgyCode = $_REQUEST['brgyCode'];
 	$benPHealth = htmlspecialchars(strtoupper($_REQUEST['benPHealth']),ENT_QUOTES,"UTF-8");
 	$suffix = htmlspecialchars(strtoupper($_REQUEST['suffix']),ENT_QUOTES,"UTF-8");
@@ -159,11 +160,11 @@ function adddetails($userid, $fullname){
 	$effectivitydate = $_REQUEST['effectivitydate'];
 	if (empty($idpatient)){ $idpatient = -1;}
 	if ($idpatient == -1){
-		$command ="CALL insertpatient('$benLName', '$benFName', '$benMName', '$benAddrSt', '$benSex', $benBDate2, '$benContact', '$benPHealth',  '$philsysid', $brgyCode, '$suffix', $userid, '$tk')";
+		$command ="CALL insertpatient('$benLName', '$benFName', '$benMName', '$benAddrSt', '$benSex', $benBDate2, '$benContact', '$benPHealth',  '$philsysid',  '$citizenid', $brgyCode, '$suffix', $userid, '$tk')";
 		$row = getrow($command);
 		$idpatient = $row['@id'];
 	} else {
-		$command ="CALL updatepatient($idpatient, '$benLName', '$benFName', '$benMName', '$benAddrSt', '$benSex', $benBDate2, '$benContact', '$benPHealth',  '$philsysid', $brgyCode, '$suffix', $userid, '$tk')";
+		$command ="CALL updatepatient($idpatient, '$benLName', '$benFName', '$benMName', '$benAddrSt', '$benSex', $benBDate2, '$benContact', '$benPHealth',  '$philsysid',  '$citizenid', $brgyCode, '$suffix', $userid, '$tk')";
 		
 		$row = getrow($command);
 	}
@@ -268,6 +269,7 @@ function updatedetails($userid, $fullname){
 	$benContact = htmlspecialchars(strtoupper($_REQUEST['benContact']),ENT_QUOTES,"UTF-8");
 	
 	$philsysid = htmlspecialchars(strtoupper($_REQUEST['philsysid']),ENT_QUOTES,"UTF-8");
+	$citizenid = strtoupper($_REQUEST['citizenid']);
 	$brgyCode = $_REQUEST['brgyCode'];
 	$benPHealth = htmlspecialchars(strtoupper($_REQUEST['benPHealth']),ENT_QUOTES,"UTF-8");
 	$suffix = htmlspecialchars(strtoupper($_REQUEST['suffix']),ENT_QUOTES,"UTF-8");
@@ -275,11 +277,11 @@ function updatedetails($userid, $fullname){
 
 	if (empty($idpatient)){ $idpatient = -1;}
 	if ($idpatient == -1){
-		$command ="CALL insertpatient('$benLName', '$benFName', '$benMName', '$benAddrSt', '$benSex', $benBDate2, '$benContact', '$benPHealth',  '$philsysid', $brgyCode, '$suffix', $userid, '$tk')";
+		$command ="CALL insertpatient('$benLName', '$benFName', '$benMName', '$benAddrSt', '$benSex', $benBDate2, '$benContact', '$benPHealth',  '$philsysid',  '$citizenid', $brgyCode, '$suffix', $userid, '$tk')";
 		$row = getrow($command);
 		$idpatient = $row['@id'];
 	} else {
-		$command ="CALL updatepatient($idpatient, '$benLName', '$benFName', '$benMName', '$benAddrSt', '$benSex', $benBDate2, '$benContact', '$benPHealth',  '$philsysid', $brgyCode, '$suffix', $userid, '$tk')";
+		$command ="CALL updatepatient($idpatient, '$benLName', '$benFName', '$benMName', '$benAddrSt', '$benSex', $benBDate2, '$benContact', '$benPHealth',  '$philsysid',  '$citizenid', $brgyCode, '$suffix', $userid, '$tk')";
 		
 		$row = getrow($command);
 	}

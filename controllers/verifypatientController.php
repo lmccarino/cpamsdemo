@@ -57,6 +57,7 @@ function updatedetails($userid){
 function searchdetails(){
 	
 	$myobj = new stdClass();
+	$citizenid = trim($_REQUEST['citizenid']);
 	$lastname = htmlspecialchars(strtoupper(trim($_REQUEST['lastname'])),ENT_QUOTES,"UTF-8");
 	$firstname = htmlspecialchars(strtoupper(trim($_REQUEST['firstname'])),ENT_QUOTES,"UTF-8");
 	$birthdate = $_REQUEST['birthdate'];
@@ -65,6 +66,9 @@ function searchdetails(){
 	if (!empty($lastname)) {
 		$lastname = $lastname.'%';
 		$xwhere = "benLName like '$lastname'";
+	} 
+	if (!empty($citizenid)) {
+		$xwhere = "citizenid = '$citizenid'";
 	} 
 	if (!empty($firstname)) {
 		$firstname = $firstname.'%';

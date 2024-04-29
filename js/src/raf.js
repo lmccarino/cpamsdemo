@@ -4,6 +4,58 @@ $(document).ready(function(){
 	
 });
 
+function removeSpecialCharacters(str) {
+    return str.replace(/[^a-zA-Z0-9]/g, '');
+}
+
+function syncCitizenProfile(){
+	let  x = document.getElementById('rafForm').elements;
+
+	let buttonHtml = $('#sync-button').html();
+
+	$('#sync-button').html(`
+		<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+		Loading...
+	`);
+
+	if (x.namedItem('citizenid').value){
+		$.get("controllers/citizensController.php",{
+				"tk":qs['tk'],
+				"trans":"GETCITIZENPROFILE",
+				"code" : x.namedItem('citizenid').value
+			}, function(data){ 
+				if(data["success"]){
+					toastr.success('Citizen Profle Retrieved.');
+
+					x.namedItem('benLName').value = data["data"]['lastname'];
+					x.namedItem('benFName').value = data["data"]['firstname'];
+					x.namedItem('benMName').value = data["data"]['middlename'];
+					x.namedItem('suffix').value = data["data"]['suffix'];
+					x.namedItem('benAddrSt').value = (`${data["data"]['lot']} ${data["data"]['street']} ${data["data"]['subdivision']}`).trim();
+					x.namedItem('brgyCode').value = removeSpecialCharacters(data["data"]['barangay']);
+					x.namedItem('benSex').value = data["data"]['sex'];
+					x.namedItem('benBDate').value = data["data"]['birthdate'];
+					x.namedItem('benContact').value = data["data"]['mobileno'];
+				}
+				else {
+					toastr.warning('Error in fetching citizen record.');
+				}
+
+				$('#sync-button').html(buttonHtml);
+				
+			},"json")
+		.fail(function() {
+				$('#sync-button').html(buttonHtml);
+				toastr.warning('Error in fetching citizen record.');
+		});	
+	}
+	else{
+		$('#sync-button').html(buttonHtml);
+		toastr.warning('Invalid Citizen ID. Please check your input.');
+	}
+
+}
+
 function validatePatient(){
 	let  x = document.getElementById('rafForm').elements;
 
@@ -13,6 +65,7 @@ function validatePatient(){
 		if (!x.namedItem('benLName').value) filled = false;
 		if (!x.namedItem('benFName').value) filled = false;
 		if (!x.namedItem('benBDate').value) filled = false;
+		console.log(filled);
 
 		if(filled){
 			$.get("controllers/patientController.php", 
@@ -394,6 +447,7 @@ function computerate2(calculate = false){
 					els.namedItem('benPHealth').value = data['benPHealth'];
 					els.namedItem('benBDate').value = data['benBDate'];
 					els.namedItem('philsysid').value = data['philsysid'];
+					els.namedItem('citizenid').value = data['citizenid'];
 					els.namedItem('benContact').value = data['benContact'];
 					els.namedItem('effectivitydate').value = data['effectivitydate'];
 					els.namedItem('typeClient').value = 'WALK-IN';
@@ -408,6 +462,7 @@ function computerate2(calculate = false){
 					els.namedItem('benSex').readOnly = true;
 					els.namedItem('benPHealth').readOnly = true;
 					els.namedItem('philsysid').readOnly = true;
+					// els.namedItem('citizenid').readOnly = true;
 					els.namedItem('benContact').readOnly = false;
 					els.namedItem('effectivitydate').readOnly = true;
 					els.namedItem('typeClient').readOnly = false;
@@ -438,11 +493,13 @@ function computerate2(calculate = false){
 						
 						els.namedItem('remarks').value = data['remarks'];
 						
-					},"json").fail(function() {
+					},"json").fail(function (xhr, error, code) {
+						console.log(error);
 						offlineerror();
 					});
 
-				},"json").fail(function() {
+				},"json").fail(function (xhr, error, code) {
+					console.log(error);
 					offlineerror();
 				});
 			}
@@ -474,6 +531,7 @@ function computerate2(calculate = false){
 					els.namedItem('benSex').value = '';
 					els.namedItem('benBDate').value = '';
 					els.namedItem('philsysid').value = '';
+					els.namedItem('citizenid').value = '';
 					els.namedItem('benContact').value = '';
 					els.namedItem('effectivitydate').value = configuredate();
 					els.namedItem('typeClient').value = 'WALK-IN';
@@ -489,6 +547,7 @@ function computerate2(calculate = false){
 					els.namedItem('benSex').readOnly = false;
 					els.namedItem('benPHealth').readOnly = false;
 					els.namedItem('philsysid').readOnly = false;
+					els.namedItem('citizenid').readOnly = false;
 					els.namedItem('benContact').readOnly = false;
 					els.namedItem('effectivitydate').readOnly = false;
 					els.namedItem('typeClient').readOnly = false;
@@ -511,6 +570,7 @@ function computerate2(calculate = false){
 					els.namedItem('benSex').value = '';
 					els.namedItem('benBDate').value = '';
 					els.namedItem('philsysid').value = '';
+					els.namedItem('citizenid').value = '';
 					els.namedItem('benContact').value = '';
 					els.namedItem('effectivitydate').value = configuredate();
 					els.namedItem('typeClient').value = 'WALK-IN';
@@ -768,6 +828,7 @@ function savethis(xform, xtag){
 								els.namedItem('benSex').readOnly = true;
 								els.namedItem('benPHealth').readOnly = true;
 								els.namedItem('philsysid').readOnly = true;
+								els.namedItem('citizenid').readOnly = true;
 								els.namedItem('benContact').readOnly = true;
 								els.namedItem('effectivitydate').readOnly = true;
 								// End Teddy C.
@@ -780,6 +841,7 @@ function savethis(xform, xtag){
 							if (data['tag']=='approve'){ 
 								document.getElementById('controlbuttons').style.display = "none"; //disable double submission!
 								$.get("controllers/rafController.php",{"tk":qs['tk'],"trans":"approve","idassistdetails":data['idassistdetails'],"amtApproved":xamtApproved,"rafNum":xrafNum}, function(d){ 
+									console.log(d);
 									if (d['id'] > -1) {
 										let xdiff = Number(d['balAmount']) - Number(d['balCritLevel']);
 
@@ -813,11 +875,11 @@ function savethis(xform, xtag){
 																		let xmessage ="Good day "+ d1['fullname']+" CPAMS ver 2.0 is informing you that Lingap fund is within the critical level. Thank you";
 																		let xdata1 = {"trans":"add_notification", "tk":qs['tk'], "message":xmessage, "user_id":d1['userid'],"title":"CPAMS - Funds in Critical Level"};
 				
-																		$.post("https://cpams2.davaocity.gov.ph/controllers/notificationController.php",xdata1,"json").fail(function(err) {
-																			console.log(err);
-																			toastr.error('Error in notifying supervisors');
-																			Swal.close();
-																		}); 
+																		// $.post("https://cpams2.davaocity.gov.ph/controllers/notificationController.php",xdata1,"json").fail(function(err) {
+																		// 	console.log(err);
+																		// 	toastr.error('Error in notifying supervisors');
+																		// 	Swal.close();
+																		// }); 
 																		i++;
 																	}
 																	toastr.success('Fund balance on critical level');
@@ -835,33 +897,13 @@ function savethis(xform, xtag){
 	
 											Swal.getHtmlContainer().textContent = `(0/4) downloading document`;
 											
-											documentPromises.push(
-											  $.get("controllers/renderGuaranteeLetterController.php", {"tk": qs['tk'], "idassistdetails": d['idassistdetails']}, "json")
-												.done(function(data) {
-												  Swal.getHtmlContainer().textContent = `(${++documents}/4) downloading document`;
-												})
-											);
+											documentPromises.push(null);
 											
-											documentPromises.push(
-											  $.get("controllers/renderCertEligibilityController.php", {"tk": qs['tk'], "idassistdetails": d['idassistdetails']}, "json")
-												.done(function(data) {
-												  Swal.getHtmlContainer().textContent = `(${++documents}/4) downloading document`;
-												})
-											);
+											documentPromises.push(null);
 											
-											documentPromises.push(
-											  $.get("controllers/renderCertIndigencyController.php", {"tk": qs['tk'], "idassistdetails": d['idassistdetails']}, "json")
-												.done(function(data) {
-												  Swal.getHtmlContainer().textContent = `(${++documents}/4) downloading document`;
-												})
-											);
+											documentPromises.push(null);
 											
-											documentPromises.push(
-											  $.get("controllers/renderIntakeFormController.php", {"tk": qs['tk'], "idassistdetails": d['idassistdetails']}, "json")
-												.done(function(data) {
-												  Swal.getHtmlContainer().textContent = `(${++documents}/4) downloading document`;
-												})
-											);
+											documentPromises.push(null);
 											
 											$.when.apply($, documentPromises).always(function() {											
 												toastr.success('Documents generated.');
@@ -892,11 +934,11 @@ function savethis(xform, xtag){
 																			let xmessage ="Good day "+ d1['fullname']+" CPAMS ver 2.0 is informing you that Lingap fund is within the critical level. Thank you";
 																			let xdata1 = {"trans":"add_notification", "tk":qs['tk'], "message":xmessage, "user_id":d1['userid'],"title":"CPAMS - Funds in Critical Level"};
 					
-																			$.post("https://cpams2.davaocity.gov.ph/controllers/notificationController.php",xdata1,"json").fail(function(err) {
-																				console.log(err);
-																				toastr.error('Error in notifying supervisors');
-																				Swal.close();
-																			}); 
+																			// $.post("https://cpams2.davaocity.gov.ph/controllers/notificationController.php",xdata1,"json").fail(function(err) {
+																			// 	console.log(err);
+																			// 	toastr.error('Error in notifying supervisors');
+																			// 	Swal.close();
+																			// }); 
 																			i++;
 																		}
 																		toastr.success('Fund balance on critical level');
@@ -933,16 +975,16 @@ function savethis(xform, xtag){
 																	let xdata = {"trans":"sendmsg", "tk":qs['tk'], "message":xmessage, "cellno":d1['cellno'],"email":d1['emailaddress']}
 																	let xdata1 = {"trans":"add_notification", "tk":qs['tk'], "message":xmessage, "user_id":d1['userid'],"title":"CPAMS - Insufficient Fund"};
 
-																	$.post("controllers/notifyController.php",xdata,"json").fail(function(err) {
-																		console.log(err);
-																		toastr.error('Error in sending sms to supervisors');
-																		Swal.close();
-																	}); 
-																	$.post("https://cpams2.davaocity.gov.ph/controllers/notificationController.php",xdata1,"json").fail(function(err) {
-																		console.log(err);
-																		toastr.error('Error in notifying supervisors');
-																		Swal.close();
-																	}); 
+																	// $.post("controllers/notifyController.php",xdata,"json").fail(function(err) {
+																	// 	console.log(err);
+																	// 	toastr.error('Error in sending sms to supervisors');
+																	// 	Swal.close();
+																	// }); 
+																	// $.post("https://cpams2.davaocity.gov.ph/controllers/notificationController.php",xdata1,"json").fail(function(err) {
+																	// 	console.log(err);
+																	// 	toastr.error('Error in notifying supervisors');
+																	// 	Swal.close();
+																	// }); 
 																	i++;
 																}
 																toastr.success('Supervisors already notified');

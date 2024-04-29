@@ -2,7 +2,7 @@ function searchthis(xform){
 	let els =xform.elements;
 	let cont = 0;
 	
-	if (!els.namedItem('lastname').value && !els.namedItem('firstname').value && !els.namedItem('birthdate').value) { toastr.warning('Invalid Entry'); cont = -1;}
+	if (!els.namedItem('citizenid').value && !els.namedItem('lastname').value && !els.namedItem('firstname').value && !els.namedItem('birthdate').value) { toastr.warning('Invalid Entry'); cont = -1;}
 	if (cont == -1){ return true; } 
 	
 	var data = $(xform).serialize();
@@ -12,6 +12,7 @@ function searchthis(xform){
 }
 function clearsearch(xform){
 	let els =xform.elements;
+	els.namedItem('citizenid').value = '';
 	els.namedItem('lastname').value = '';
 	els.namedItem('firstname').value = '';
 	els.namedItem('birthdate').value = '';
@@ -21,7 +22,7 @@ function getassistperiod(data){
 	let tk = qs['tk'];
 	if (!tk) {tk=localStorage.getItem("tk");}
 	$.get('controllers/verifypatientController.php',{"idpatient":xidpatient,"trans":"getassistperiod","tk":tk}, function (d) { filltotalamount(d);},'json').fail(function() {
-			offlineerror();
+			// offlineerror();
 			});	
 	return true;
 }
@@ -42,6 +43,7 @@ function filterdata(d){
 	var table = $('#ds').DataTable( {"destroy":true, 
 		dom: 'lfrtip', 
 		"ajax": {"url": "controllers/verifypatientController.php?"+d, "error": function (xhr, error, code) {
+			console.log(error);
             offlineerror();
         }},
         "columns": [
@@ -54,7 +56,7 @@ function filterdata(d){
 					{ "className":'details2',"data": "benFName"},
 					{ "className":'details2',"data": "benMName"},
 					{ "className":'details2',"data": "benBDate"},
-					{ "className":'details2',"data": "philsysid"},
+					{ "className":'details2',"data": "citizenid"},
 					{ "className":"select","data": null, "defaultContent": '<small><button type="button" class="btn btn-warning btn-sm"><small>Select</small></button></small>'}
 		        ],
         "order": [[3, 'desc']],
@@ -127,7 +129,10 @@ var tk = qs['tk'];
 	var table = $(tableid).DataTable( {"destroy":true,"searching":false,
 		dom: 'lfrtip', 
 		"ajax": {"url":"controllers/verifypatientController.php?trans=getdetails&idpatient="+data['idpatient']+"&tk="+tk, 
-		         "error": function (xhr, error, code) {offlineerror();}
+		         "error": function (xhr, error, code) {
+					console.log(error);
+					offlineerror();
+				}
 				},
         "columns": [
 					{ "data": "rafnum"},

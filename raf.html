@@ -105,6 +105,20 @@
 				<label><strong>Total assistance availed for the month:</strong></label> <span id="idtotal"></span> 
 			</div>
 			<div class="row g-1 py-1">
+				<div class="col-md-3">
+					<div class="form-floating">
+						<input type="text" class="form-control" name="citizenid" placeholder="Citizen ID Number" onfocusout="computerate2(); validatePatient();"/>
+						<label>Citizen's ID Number</label>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<button class="btn btn-success mt-2" id="sync-button" onclick="syncCitizenProfile();" type="button">
+						<i class="fas fa-rotate"></i>
+						Sync Citizen Profile
+					</button>
+				</div>
+			</div>
+			<div class="row g-1 py-1">
 				<div class="col-md">
 					<div class="form-floating">
 						<input type="text" class="form-control" name="benLName" placeholder="Last Name" onfocusout="computerate2(); validatePatient();" required/>
