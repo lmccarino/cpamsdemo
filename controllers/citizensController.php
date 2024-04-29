@@ -18,12 +18,12 @@ function find($id) {
                         ad.amtApproved AS approved_amount,
                         ad.dateApproved AS approved_date,
                         o.officename AS provider, 
-                        of.officename AS location,
+                        `of`.officename AS location,
                         sc.assistDesc AS assistance 
                     FROM assistdetail AS ad
                     INNER JOIN assistsched AS sc ON sc.idassistsched = ad.idassistsched
                     LEFT JOIN office AS o ON o.officecode = ad.provCode
-                    LEFT JOIN office AS of ON of.idoffice = ad.procloc
+                    LEFT JOIN office AS `of` ON `of`.idoffice = ad.procloc
                     WHERE ad.idpatient = $patient;";
         $result = gettable($command);
 
