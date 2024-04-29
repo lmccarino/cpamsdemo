@@ -24,7 +24,7 @@ function find($id) {
                     INNER JOIN assistsched AS sc ON sc.idassistsched = ad.idassistsched
                     LEFT JOIN office AS o ON o.officecode = ad.provCode
                     LEFT JOIN office AS of ON of.idoffice = ad.procloc
-                    WHERE ad.idpatient = $patient";
+                    WHERE ad.idpatient = $patient;";
         $result = gettable($command);
 
         if (!empty($result))
