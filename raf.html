@@ -107,7 +107,7 @@
 			<div class="row g-1 py-1">
 				<div class="col-md-3">
 					<div class="form-floating">
-						<input type="text" class="form-control" name="citizenid" placeholder="Citizen ID Number" onfocusout="computerate2(); validatePatient();"/>
+						<input type="text" class="form-control" id="citizen-id" name="citizenid" placeholder="Citizen ID Number" onkeypress="handleKeyPress(event);" onfocusout="validateCitizenID(this);"/>
 						<label>Citizen's ID Number</label>
 					</div>
 				</div>

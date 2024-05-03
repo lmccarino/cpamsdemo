@@ -8,6 +8,39 @@ function removeSpecialCharacters(str) {
     return str.replace(/[^a-zA-Z0-9]/g, '');
 }
 
+// function isValidUrl(string) {
+// 	var regex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+// 	return regex.test(string);
+// }
+
+function isValidUrl(string) {
+    try {
+        new URL(string);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+// This function extracts a parameter from the URL query string
+function validateCitizenID(item) {
+	console.log(item);
+	if(isValidUrl(item.value)){
+		console.log(item.value);
+        const queryString = item.value.split('?')[1];
+		const urlParams = new URLSearchParams(queryString);
+		item.value = urlParams.get('id');
+	}
+}
+
+function handleKeyPress(event) {
+    // Check if the pressed key is Enter (key code 13)
+    if (event.key === 'Enter' || event.keyCode === 13) {
+        // Call the validation function passing the input element
+        validateCitizenID(event.target);
+    }
+}
+
 function syncCitizenProfile(){
 	let  x = document.getElementById('rafForm').elements;
 

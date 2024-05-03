@@ -1,6 +1,6 @@
 
 function startload(){
-$("#raf").load("raf.html?v=7.1", initraf1());
+$("#raf").load("raf.html?v=7.6", initraf1());
 
 var otk = document.getElementsByName('tk');
 for(var x=0; x < otk.length; x++)   // comparison should be "<" not "<="
