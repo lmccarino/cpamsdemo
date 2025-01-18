@@ -887,101 +887,108 @@ function savethis(xform, xtag){
 
 											resolve();
 											
-											if(xdiff < 1){
-												Swal.fire({
-													title: 'Critical Level Fund',
-													text: "Would you like to inform the supervisor regarding the Lingap fund reaching a critical level?",
-													icon: 'info',
-													showCancelButton: true,
-													confirmButtonColor: '#3085d6',
-													cancelButtonColor: '#aaa',
-													cancelButtonText: 'Later',
-													confirmButtonText: 'Notify',
-													showLoaderOnConfirm: true,
-													width: 300,
-													allowOutsideClick: () => !swal.isLoading(),
-													preConfirm: () => {
-														return $.get("controllers/extractrolesController.php",{"tk":qs['tk'],"trans":"getroles","roles[]":"SUPERVISOR"}, function (d){
-																	let i = 0;
-																	while (i < d.length) {
-																		let d1 = d[i];
-																		let xmessage ="Good day "+ d1['fullname']+" CPAMS ver 2.0 is informing you that Lingap fund is within the critical level. Thank you";
-																		let xdata1 = {"trans":"add_notification", "tk":qs['tk'], "message":xmessage, "user_id":d1['userid'],"title":"CPAMS - Funds in Critical Level"};
+											// if(xdiff < 1){
+											// 	Swal.fire({
+											// 		title: 'Critical Level Fund',
+											// 		text: "Would you like to inform the supervisor regarding the Lingap fund reaching a critical level?",
+											// 		icon: 'info',
+											// 		showCancelButton: true,
+											// 		confirmButtonColor: '#3085d6',
+											// 		cancelButtonColor: '#aaa',
+											// 		cancelButtonText: 'Later',
+											// 		confirmButtonText: 'Notify',
+											// 		showLoaderOnConfirm: true,
+											// 		width: 300,
+											// 		allowOutsideClick: () => !swal.isLoading(),
+											// 		preConfirm: () => {
+											// 			return $.get("controllers/extractrolesController.php",{"tk":qs['tk'],"trans":"getroles","roles[]":"SUPERVISOR"}, function (d){
+											// 						let i = 0;
+											// 						while (i < d.length) {
+											// 							let d1 = d[i];
+											// 							let xmessage ="Good day "+ d1['fullname']+" CPAMS ver 2.0 is informing you that Lingap fund is within the critical level. Thank you";
+											// 							let xdata1 = {"trans":"add_notification", "tk":qs['tk'], "message":xmessage, "user_id":d1['userid'],"title":"CPAMS - Funds in Critical Level"};
 				
-																		// $.post("https://cpams2.davaocity.gov.ph/controllers/notificationController.php",xdata1,"json").fail(function(err) {
-																		// 	console.log(err);
-																		// 	toastr.error('Error in notifying supervisors');
-																		// 	Swal.close();
-																		// }); 
-																		i++;
-																	}
-																	toastr.success('Fund balance on critical level');
-																},"json").fail(function() {
-																	toastr.error('Failed to notify Supervisor.');
-																});
-													}
-												});
-											}
+											// 							// $.post("https://cpams2.davaocity.gov.ph/controllers/notificationController.php",xdata1,"json").fail(function(err) {
+											// 							// 	console.log(err);
+											// 							// 	toastr.error('Error in notifying supervisors');
+											// 							// 	Swal.close();
+											// 							// }); 
+											// 							i++;
+											// 						}
+											// 						toastr.success('Fund balance on critical level');
+											// 					},"json").fail(function() {
+											// 						toastr.error('Failed to notify Supervisor.');
+											// 					});
+											// 		}
+											// 	});
+											// }
 										}
 										else {
 											toastr.success('RAF Approved');
-											let documents = 0;
-											const documentPromises = [];
+											
+											document.getElementById('controlbuttons').style.display ="none";
+											document.getElementById('reportbuttons').style.display ="block";
+											document.getElementById('myfields').disabled = true;
+
+											resolve();
+
+											// let documents = 0;
+											// const documentPromises = [];
 	
-											Swal.getHtmlContainer().textContent = `(0/4) downloading document`;
+											// Swal.getHtmlContainer().textContent = `(0/4) downloading document`;
 											
-											documentPromises.push(null);
+											// documentPromises.push(null);
 											
-											documentPromises.push(null);
+											// documentPromises.push(null);
 											
-											documentPromises.push(null);
+											// documentPromises.push(null);
 											
-											documentPromises.push(null);
+											// documentPromises.push(null);
 											
-											$.when.apply($, documentPromises).always(function() {											
-												toastr.success('Documents generated.');
-												document.getElementById('controlbuttons').style.display ="none";
-												document.getElementById('reportbuttons').style.display ="block";
-												document.getElementById('myfields').disabled = true;
+											// $.when.apply($, documentPromises).always(function() {											
+											// 	toastr.success('Documents generated.');
+											// 	document.getElementById('controlbuttons').style.display ="none";
+											// 	document.getElementById('reportbuttons').style.display ="block";
+											// 	document.getElementById('myfields').disabled = true;
 												
-												resolve();
+											// 	resolve();
 												
-												if(xdiff < 1){
-													Swal.fire({
-														title: 'Critical Level Fund',
-														text: "Would you like to inform the supervisor regarding the Lingap fund reaching a critical level?",
-														icon: 'info',
-														showCancelButton: true,
-														confirmButtonColor: '#3085d6',
-														cancelButtonColor: '#aaa',
-														cancelButtonText: 'Later',
-														confirmButtonText: 'Notify',
-														showLoaderOnConfirm: true,
-														width: 300,
-														allowOutsideClick: () => !swal.isLoading(),
-														preConfirm: () => {
-															return $.get("controllers/extractrolesController.php",{"tk":qs['tk'],"trans":"getroles","roles[]":"SUPERVISOR"}, function (d){
-																		let i = 0;
-																		while (i < d.length) {
-																			let d1 = d[i];
-																			let xmessage ="Good day "+ d1['fullname']+" CPAMS ver 2.0 is informing you that Lingap fund is within the critical level. Thank you";
-																			let xdata1 = {"trans":"add_notification", "tk":qs['tk'], "message":xmessage, "user_id":d1['userid'],"title":"CPAMS - Funds in Critical Level"};
+											// 	if(xdiff < 1){
+											// 		Swal.fire({
+											// 			title: 'Critical Level Fund',
+											// 			text: "Would you like to inform the supervisor regarding the Lingap fund reaching a critical level?",
+											// 			icon: 'info',
+											// 			showCancelButton: true,
+											// 			confirmButtonColor: '#3085d6',
+											// 			cancelButtonColor: '#aaa',
+											// 			cancelButtonText: 'Later',
+											// 			confirmButtonText: 'Notify',
+											// 			showLoaderOnConfirm: true,
+											// 			width: 300,
+											// 			allowOutsideClick: () => !swal.isLoading(),
+											// 			preConfirm: () => {
+											// 				return $.get("controllers/extractrolesController.php",{"tk":qs['tk'],"trans":"getroles","roles[]":"SUPERVISOR"}, function (d){
+											// 							let i = 0;
+											// 							while (i < d.length) {
+											// 								let d1 = d[i];
+											// 								let xmessage ="Good day "+ d1['fullname']+" CPAMS ver 2.0 is informing you that Lingap fund is within the critical level. Thank you";
+											// 								let xdata1 = {"trans":"add_notification", "tk":qs['tk'], "message":xmessage, "user_id":d1['userid'],"title":"CPAMS - Funds in Critical Level"};
 					
-																			// $.post("https://cpams2.davaocity.gov.ph/controllers/notificationController.php",xdata1,"json").fail(function(err) {
-																			// 	console.log(err);
-																			// 	toastr.error('Error in notifying supervisors');
-																			// 	Swal.close();
-																			// }); 
-																			i++;
-																		}
-																		toastr.success('Fund balance on critical level');
-																	},"json").fail(function() {
-																		toastr.error('Failed to notify Supervisor.');
-																	});
-														}
-													});
-												}
-											});
+											// 								// $.post("https://cpams2.davaocity.gov.ph/controllers/notificationController.php",xdata1,"json").fail(function(err) {
+											// 								// 	console.log(err);
+											// 								// 	toastr.error('Error in notifying supervisors');
+											// 								// 	Swal.close();
+											// 								// }); 
+											// 								i++;
+											// 							}
+											// 							toastr.success('Fund balance on critical level');
+											// 						},"json").fail(function() {
+											// 							toastr.error('Failed to notify Supervisor.');
+											// 						});
+											// 			}
+											// 		});
+											// 	}
+											// });
 										}
 									} 
 									else if (d['id'] == -1) {
